@@ -96,6 +96,8 @@ menu:
   about: /about/ || user
   tags: /tags/ || tags
   categories: /categories/ || th
+  life: /life || life-buoy
+  photo: /photo || photo
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
