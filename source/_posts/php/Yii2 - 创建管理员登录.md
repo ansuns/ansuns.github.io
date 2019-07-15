@@ -13,7 +13,6 @@ date: 2019-07-14 19:13:00
 ``` bash
 $ ./yii migrate
 ```
-
 2. ##### 创建管理的控制器
 ``` bash
 $ cd console/controllers/
@@ -67,13 +66,11 @@ class InitController extends Controller
     }
 }
 ```
-
 3. ##### 执行脚本
 ``` bash
 $ ./yii init/admin
 ```
-
 如下：
-![](../images/yii2-01.png)
+![](../../images/yii2-01.png)
 
 然后分别输入帐户、Email、登录密码，完成创建。
