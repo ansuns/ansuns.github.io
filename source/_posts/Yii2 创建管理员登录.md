@@ -1,3 +1,4 @@
+---
 title: 创建管理员登录
 tags:
   - Yii2
@@ -6,6 +7,7 @@ tags:
 categories:
   - 技术
   - PHP
+abbrlink: 74d3977b
 date: 2019-07-14 19:13:00
 ---
 1. ##### 创建管理员表
@@ -71,6 +73,6 @@ class InitController extends Controller
 $ ./yii init/admin
 ```
 如下：
-![](../../images/yii2-01.png)
+![](../images/yii2-01.png)
 
 然后分别输入帐户、Email、登录密码，完成创建。
