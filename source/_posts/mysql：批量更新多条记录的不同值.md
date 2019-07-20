@@ -3,6 +3,12 @@ title: mysql语句：批量更新多条记录的不同值
 abbrlink: 1125adb3
 date: 2019-07-20 11:44:41
 tags:
+ - mysql
+ - 数据库
+ 
+categories:
+ - 技术
+ - mysql
 ---
 mysql更新语句很简单，更新一条数据的某个字段，一般这样写：
 ``` sql
