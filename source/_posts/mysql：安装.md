@@ -1,7 +1,7 @@
 ---
-title: mysql：6
-abbrlink: bf4ad76b
-date: 2019-07-20 15:05:49
+title: mysql：安装
+abbrlink: c84de7fd
+date: 2019-07-20 15:05:55
 tags:
  - mysql
  - 数据库
