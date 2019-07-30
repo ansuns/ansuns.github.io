@@ -1,6 +1,6 @@
 ---
 title: 接口封装
-abbrlink: 6d5007a7
+abbrlink: 6dd28e9b
 date: 2015-12-18 16:06:14
 tags:
   - PHP
