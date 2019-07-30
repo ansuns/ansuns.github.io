@@ -1,7 +1,7 @@
 ---
 title: PHP程序输出数据库表结构
 abbrlink: c9ee01e2
-date: 2019-07-30 11:23:36
+date: 2016-12-01 11:23:36
 tags:
   - PHP
   - 后端
