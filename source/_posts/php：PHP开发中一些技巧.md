@@ -1,5 +1,5 @@
 ---
-title: php：PHP开发中一些技巧
+title: PHP开发中一些技巧
 abbrlink: 6d5007a7
 date: 2015-08-27 17:56:44
 tags:

@@ -1,5 +1,5 @@
 ---
-title: php：接口封装
+title: 接口封装
 abbrlink: 6d5007a7
 date: 2015-12-18 16:06:14
 tags:
