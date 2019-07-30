@@ -98,22 +98,26 @@ echo $sql;
 性能分析
 当我使用上万条记录利用mysql批量更新，发现使用最原始的批量update发现性能很差，将网上看到的总结一下一共有以下三种办法：
 1.批量update，一条记录update一次，性能很差
-```` sql
+``` sql
 update test_tbl set dr='2' where id=1;
-````
+```
 2.replace into 或者insert into ...on duplicate key update
 ``` sql
 replace into test_tbl (id,dr) values (1,'2'),(2,'3'),...(x,'y');
 ```
 或者使用
-```` sql
+``` sql
 insert into test_tbl (id,dr) values  (1,'2'),(2,'3'),...(x,'y') on duplicate key update dr=values(dr);
-````
+```
 3.创建临时表，先更新临时表，然后从临时表中update
- 代码如下
+代码如下
 ``` sql
 create temporary table tmp(id int(4) primary key,dr varchar(50));
+```
+``` sql
 insert into tmp values  (0,'gone'), (1,'xx'),...(m,'yy');
+```
+``` sql
 update test_tbl, tmp set test_tbl.dr=tmp.dr where test_tbl.id=tmp.id;
 ``` 
 注意：这种方法需要用户有temporary 表的create 权限。
@@ -129,12 +133,14 @@ replace into
 real    0m1.394s
 user    0m0.060s
 sys    0m0.012s
-
+```
+``` sql
 insert into on duplicate key update
 real    0m1.474s
 user    0m0.052s
 sys    0m0.008s
-
+```
+``` sql
 create temporary table and update:
 real    0m0.643s
 user    0m0.064s
@@ -157,7 +163,7 @@ $iii = implode(',', array_keys($arr));
         $sql2 .= "END WHERE uid IN ($iii)";
 
 echo $sql2;
-
+```
 ``` php
 <?php
 
