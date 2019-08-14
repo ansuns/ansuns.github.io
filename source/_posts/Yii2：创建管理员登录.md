@@ -1,5 +1,5 @@
 ---
-title: 创建管理员登录
+title: Yii2创建管理员登录
 tags:
   - Yii2
   - PHP
@@ -10,12 +10,12 @@ categories:
 abbrlink: 74d3977b
 date: 2019-07-14 19:13:00
 ---
-1. ##### 创建管理员表  
+##### 1. 创建管理员表  #####
 进入项目根目录，在根目录执行命令：
 ```bash
 $ ./yii migrate
 ```
-2. ##### 创建管理的控制器  
+##### 2. 创建管理的控制器  #####
 ```bash
 $ cd console/controllers/
 ```
@@ -68,7 +68,7 @@ class InitController extends Controller
     }
 }
 ```
-3. ##### 执行脚本  
+##### 3. 执行脚本  #####
 ```bash
 $ ./yii init/admin
 ```

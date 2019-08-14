@@ -97,11 +97,11 @@ echo $sql;
 这个例子，有8条记录进行更新。代码也很容易理解，你学会了吗
 性能分析
 当我使用上万条记录利用mysql批量更新，发现使用最原始的批量update发现性能很差，将网上看到的总结一下一共有以下三种办法：
-1.批量update，一条记录update一次，性能很差
+##### 1. 批量update，一条记录update一次，性能很差 #####
 ```sql
 update test_tbl set dr='2' where id=1;
 ```
-2.replace into 或者insert into ...on duplicate key update
+##### 2. replace into 或者insert into ...on duplicate key update #####
 ```sql
 replace into test_tbl (id,dr) values (1,'2'),(2,'3'),...(x,'y');
 ```
@@ -109,7 +109,7 @@ replace into test_tbl (id,dr) values (1,'2'),(2,'3'),...(x,'y');
 ```sql
 insert into test_tbl (id,dr) values  (1,'2'),(2,'3'),...(x,'y') on duplicate key update dr=values(dr);
 ```
-3.创建临时表，先更新临时表，然后从临时表中update
+##### 3. 创建临时表，先更新临时表，然后从临时表中update #####
 代码如下
 ```sql
 create temporary table tmp(id int(4) primary key,dr varchar(50));
@@ -165,16 +165,13 @@ $iii = implode(',', array_keys($arr));
 echo $sql2;
 ```
 ```php
-<?php
-
 /**
  * 批量更新多字段
  * @return string
  * @throws \think\db\exception\BindParamException
  * @throws \think\exception\PDOException
  */
-public
-function updateAll()
+public function updateAll()
 {
     BaseModel::instance()->startTrans();
     $sql = "UPDATE lc_users ";

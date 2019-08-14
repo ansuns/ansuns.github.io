@@ -10,7 +10,7 @@ categories:
  - 技术
  - mysql
 ---
-1.如何查看sql语句执行效率？
+##### 1. 如何查看sql语句执行效率？ #####
 
 使用explain函数 ：
 ```sql

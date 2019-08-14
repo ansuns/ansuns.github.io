@@ -39,10 +39,11 @@ mv composer.phar /usr/local/bin/composer
 
 安装 - Windows
 使用安装程序
-这是将 Composer 安装在你机器上的最简单的方法。
-下载并且运行 Composer-Setup.exe，它将安装最新版本的 Composer ，并设置好系统的环境变量，因此你可以在任何目录下直接使用 composer 命令。
+>这是将 Composer 安装在你机器上的最简单的方法。
+>下载并且运行 Composer-Setup.exe，它将安装最新版本的 Composer ，并设置好系统的环境变量，因此你可以在任何目录下直接使用 composer 命令。
+
 手动安装
-设置系统的环境变量 PATH 并运行安装命令下载 composer.phar 文件：
+>设置系统的环境变量 PATH 并运行安装命令下载 composer.phar 文件：
 ```bash
 C:\Users\username>cd C:\bin
 C:\bin>php -r "readfile('https://getcomposer.org/installer');" | php

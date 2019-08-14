@@ -13,7 +13,7 @@ categories:
 
 所以，要将其设为自动启动的服务也就困难了。
 上网搜索了一下，结果，得到以下一些结果，做个记录：
-1、最傻的做法
+##### 1、最傻的做法 #####
 通常：启动Memcache的服务器端的命令为：
 ```php
 # /usr/local/bin/memcached -d -m 10 -u root -l 192.168.0.200 -p 12000 -c 256 -P /tmp/memcached.pid
@@ -33,7 +33,7 @@ categories:
 上面有些东西可以参考一下：即，ip不指定时，默认是本机，用户，最好选择是：apache 或 deamon
 这样，也就是属于哪个用户的服务，由哪个用户启动。
  
-2、较正规的方法：
+##### 2、较正规的方法： #####
 ```php
 To add a service to chkconfig you will normally need a couple of special comments below the shebang of a shell script:
 #!/bin/sh   

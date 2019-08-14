@@ -9,7 +9,7 @@ categories:
   - 技术
   - PHP
 ---
-1. 让json_encode不转义斜杠
+##### 1. 让json_encode不转义斜杠 #####
 
 ```php
 echo str_replace("\\/", "/", json_encode("2013/4/21"));
@@ -18,7 +18,7 @@ echo str_replace("\\/", "/", json_encode("2013/4/21"));
 ```php
 echo json_encode("2011/7/11", JSON_UNESCAPED_SLASHES);
 ```
-2. openssl生成证书server.key server.crt
+##### 2. openssl生成证书server.key server.crt #####
 Key是私用秘钥，通常是RSA算法
 Csr是证书请求文件，用于申请证书。在制作csr文件时，必须使用自己的私钥来签署申，还可以设定一个密钥。
 crt是CA认证后的证书文，签署人用自己的key给你签署凭证。
@@ -38,7 +38,7 @@ crt的生成
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 生成的server.crt文件
-3. 获取程序开始执行的时间
+##### 3. 获取程序开始执行的时间 #####
 ```php
 $stime = microtime(true); #获取程序开始执行的时间
 #你写的php代码

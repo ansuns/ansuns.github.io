@@ -9,14 +9,14 @@ categories:
  - 技术
 ---
 
-1. 使用yum install 命令安装memcached
+##### 1. 使用yum install 命令安装memcached #####
 ```bash
 yum install memcached
  /usr/bin/memcached -d -l 127.0.0.1 -p 11211 -m 150 -u root
 ```
 -d守护进程 -l服务器地址 -p端口号 -m分配内存 -u已root用户启动
 
-2. Memcached客户端安装
+##### 2. Memcached客户端安装 #####
 
 - 安装   Libmemcached
 - 为PHP安装 Memcached扩展
@@ -30,7 +30,7 @@ ibmemcached
 make && make install
 ```
 
-3. 安装 Memcached扩展
+##### 3. 安装 Memcached扩展 #####
 ```bash
 wget http://pecl.php.net/get/memcached-2.2.0.tgz
 tar zxvf memcached-2.2.0.tgz 
@@ -45,12 +45,12 @@ checking for libmemcached location... configure: error: memcached support requir
  Use --with-libmemcached-dir=<DIR> to specify the prefix where libmemcached headers and library are located
 
 ```
-4. 指定libmemcache安装目录
+##### 4. 指定libmemcache安装目录 #####
 ```bash
  ./configure --with-php-config=/usr/local/php/bin/php-config --with-libmemcached-dir=/usr/lib/libmemcached/
 ```
 
-5. 又出现一个错误
+##### 5. 又出现一个错误 #####
 ```angular2html
 checking for sasl/sasl.h... no
 configure: error: no, sasl.h is not available. Run configure with --disable-memcached-sasl to disable this check
