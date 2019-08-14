@@ -1,7 +1,7 @@
 ---
 title: mysql：连接PHP等基本操作
 abbrlink: 5144b647
-date: 2019-07-20 15:05:36
+date: 2015-11-29 15:05:36
 tags:
  - mysql
  - 数据库

@@ -102,5 +102,3 @@ function get_diy_date($type)
     return [date('Y-m-d H:i:s', $start), date('Y-m-d H:i:s', $end)];
 }
 ```
-
- ```
