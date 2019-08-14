@@ -218,6 +218,3 @@ return $this->render('display.html',['name'=>'ansuns']);
 //模板里边
 {$name}
 ```
-#### 9. ####
-#### 9. ####
-#### 9. ####
