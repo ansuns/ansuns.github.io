@@ -13,7 +13,7 @@ categories:
 1.如何查看sql语句执行效率？
 
 使用explain函数 ：
-``` sql
+```sql
 explain select * from user;
 ```
 

@@ -9,7 +9,7 @@ categories:
   - 技术
   - PHP
 ---
-``` php
+```php
 <?php
 
 class Response

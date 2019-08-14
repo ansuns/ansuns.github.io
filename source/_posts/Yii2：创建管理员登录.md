@@ -12,15 +12,15 @@ date: 2019-07-14 19:13:00
 ---
 1. ##### 创建管理员表  
 进入项目根目录，在根目录执行命令：
-``` bash
+```bash
 $ ./yii migrate
 ```
 2. ##### 创建管理的控制器  
-``` bash
+```bash
 $ cd console/controllers/
 ```
   编写代码如下：
-``` php
+```php
 <?php
 
 namespace console\controllers;
@@ -69,7 +69,7 @@ class InitController extends Controller
 }
 ```
 3. ##### 执行脚本  
-``` bash
+```bash
 $ ./yii init/admin
 ```
   然后分别输入帐户、Email、登录密码，完成创建。

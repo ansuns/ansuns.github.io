@@ -8,7 +8,7 @@ tags:
 categories:
  - 技术
 ---
-``` php
+```php
 <?php
 
 class Memcached

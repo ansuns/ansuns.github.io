@@ -10,7 +10,7 @@ categories:
 ---
 
 1. 使用yum install 命令安装memcached
-``` bash
+```bash
 yum install memcached
  /usr/bin/memcached -d -l 127.0.0.1 -p 11211 -m 150 -u root
 ```
@@ -20,18 +20,18 @@ yum install memcached
 
 - 安装   Libmemcached
 - 为PHP安装 Memcached扩展
-``` bash 
+```bash 
 wget https://launchpad.net/libmemcached/1.0/1.0.9/+download/libmemcached-1.0.9.tar.gz
 ibmemcached
 ```
 #/usr/lib/libmemcached 安装在这个目录
-``` bash
+```bash
  ./configure --prefix=/usr/lib/libmemcached
 make && make install
 ```
 
 3. 安装 Memcached扩展
-``` bash
+```bash
 wget http://pecl.php.net/get/memcached-2.2.0.tgz
 tar zxvf memcached-2.2.0.tgz 
 cd memcached-2.2.0
@@ -46,7 +46,7 @@ checking for libmemcached location... configure: error: memcached support requir
 
 ```
 4. 指定libmemcache安装目录
-``` bash
+```bash
  ./configure --with-php-config=/usr/local/php/bin/php-config --with-libmemcached-dir=/usr/lib/libmemcached/
 ```
 
@@ -58,17 +58,17 @@ configure: error: no, sasl.h is not available. Run configure with --disable-memc
 ```
 
 解决
-``` bash
+```bash
  ./configure --with-php-config=/usr/local/php/bin/php-config --with-libmemcached-dir=/usr/lib/libmemcached/ --disable-memcached-sasl
 
 ```
 
 1继续..
-``` bash
+```bash
 make && make install
 ```
 安装成功
-``` bash
+```bash
 If you ever happen to want to link against installed libraries
 in a given directory, LIBDIR, you must either use libtool, and
 specify the full pathname of the library, or use the `-LLIBDIR'
@@ -95,7 +95,7 @@ Don't forget to run 'make test'.
  /usr/local/php/lib/php/extensions/no-debug-non-zts-20121212/
 
 接着把扩展加到PHP里边
-``` bash 
+```bash 
 vim /usr/local/php/etc/php.ini
 extension=memcached.so
 wq
@@ -104,11 +104,11 @@ wq
 
 重启
 查看有没有加载扩展
-```` bash
+````bash
 php -m | grep memcached
 ````
 示例：
-``` php
+```php
 $memcached = new memcached();
 $memcached->addServers('192.168.18.88',11211);
 $memcached->add('key','value');

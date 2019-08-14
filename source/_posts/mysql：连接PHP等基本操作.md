@@ -16,14 +16,14 @@ categories:
 $mylink  =  mysql_connect(“localhost",  'root',  '123');
 ```
 2，设定连接编码（通常是utf8）
-``` php
+```php
 mysql_set_charset(“utf8"); 
-```                 
+```                
 也可以使用：mysql_query(“set names utf8");
 3，选择数据库（如有需要）
-``` php
+```php
 mysql_select_db("数据库名");
-```            
+```           
 也可以使用：mysql_query("use  数据库名");
 4，执行sql命令。
 ```php

@@ -15,7 +15,7 @@ categories:
 上网搜索了一下，结果，得到以下一些结果，做个记录：
 1、最傻的做法
 通常：启动Memcache的服务器端的命令为：
-``` php
+```php
 # /usr/local/bin/memcached -d -m 10 -u root -l 192.168.0.200 -p 12000 -c 256 -P /tmp/memcached.pid
 ```
 -d选项是启动一个守护进程，
@@ -27,14 +27,14 @@ categories:
 -P是设置保存Memcache的pid文件，我这里是保存在 /tmp/memcached.pid，
 想开机自动启动的话，只需在/etc/rc.d/rc.local中加入一行，上面命令
 有人用以下命令：
-```` php
+````php
 /usr/local/memcached/bin/memcached -d -m 20 -p 11211 -u apache
 ````
 上面有些东西可以参考一下：即，ip不指定时，默认是本机，用户，最好选择是：apache 或 deamon
 这样，也就是属于哪个用户的服务，由哪个用户启动。
  
 2、较正规的方法：
-``` php
+```php
 To add a service to chkconfig you will normally need a couple of special comments below the shebang of a shell script:
 #!/bin/sh   
 # chkconfig: - 55 45  
@@ -51,17 +51,17 @@ chkconfig --level 345 memcached on
 说明：chkconfig --add memcached 用来添加memcached服务
 chkconfig --list | grep "memcached" 检查服务是否添加
 还可以简写为这样：
-``` bash
+```bash
 chkconfig  --list | grep mem
-``` bash
+```bash
 chkconfig --level 345 memcached on
-``` 
+```
 设置运行级别。
 建议：最好使用chkconfig --level 235 memcached on 这样的话与apache级别相同，即只要有apache，就有memcached
 3、更复杂的做法，创建完美的启动脚本
 网上找到以下两个脚本：
  
- ``` bash
+ ```bash
  #!/bin/sh   
  #   
  # memcached:    MemCached Daemon   
@@ -160,20 +160,20 @@ chkconfig --level 345 memcached on
  ```
 
 在上述指定目录创建了上述某一个脚本以后，就可以进行以下操作：
- ``` bash
+ ```bash
  [root@crm ~]# chkconfig  --add memcached 
  [root@crm ~]# chkconfig  --level 235  memcached  on
  [root@crm ~]# chkconfig  --list | grep mem
  memcached       0:off   1:off   2:on   3:on    4:off   5:on   6:off
  ```
 接下来，可以用以下命令启动与停止 memcached
-``` bash
+```bash
 /etc/rc.d/init.d/memcached  start  
 /etc/rc.d/init.d/memcached  stop
 /etc/rc.d/init.d/memcached  restart
 ```
 如： 
-``` bash
+```bash
 [root@crm ~]# /etc/rc.d/init.d/memcached  restart
 Shutting down memcached: [  OK  ]
 Starting memcached:      [  OK  ]
@@ -182,7 +182,7 @@ Starting memcached:      [  OK  ]
 service memcached start
 这样的命令操作
 然后，可以用ps命令查看进程信息。
-``` bash
+```bash
 [root@crm ~]# ps aux | grep mem
 daemon   23781  0.0  0.2 13892 9860 ?  Ss 16:51:00  /.../memcached -u daemon -d -m 1024 -l 172.16.0.106 -p 11211
 ```
@@ -192,7 +192,7 @@ daemon   23781  0.0  0.2 13892 9860 ?  Ss 16:51:00  /.../memcached -u daemon -d 
 当然，memcached多数情况下都是编译安装，因为，很多时候都是找不到对应的版本。
 脚本中 # chkconfig: - 55 45 运行级别这一列参数用的是 -，这样，是不在脚本中写死，可以通过 chkconfig  --level 235  memcached  on 灵活设置。
 最后就是，目前仍不了解
-``` bash
+```bash
 . /etc/sysconfig/network
 #[ ${NETWORKING} = "no" ] && exit 0
 #[ -r /etc/sysconfig/dund ] || exit 0

@@ -10,12 +10,12 @@ categories:
 ---
 1. git-bash下composer命令无法使用的问题
 已经安装composer，写好composer.bat，并且设置好了path，在cmd下可以正常使用，但是在git-bash里面不行，显示如下提示：
-``` bash```
+```bash```
 bash: composer: command not found
 ```
 原因很可能是composer文件没有可执行权限，git-bash是以linux shell方式运行的，linux和windows文件权限管理方式不太一样。
 切换到composer文件所在目录，执行如下命令修复权限：
-``` bash
+```bash
 chmod 755 composer.bat
 ```
 可是我发现上面的命令没有效果，这就尴尬了……
@@ -29,6 +29,6 @@ php `dirname $0`/composer.phar $*
 
 2. Installation failed, reverting ./composer.json to its original content.
 解决
-``` bash
+```bash
 composer update nothing
 ```

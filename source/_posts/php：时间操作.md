@@ -10,7 +10,7 @@ categories:
   - PHP
 ---
 1. 列出日期范围内的所有日期
-``` php
+```php
 <?php
 
 function date_range($first, $last, $step = '+1 day', $format = 'Y-m-d')
@@ -53,7 +53,7 @@ function date_range2($first, $last)
 // test: print_r(date_range('2014-06-22', '2014-07-02'));
 ```
 2. 获取自定义时间范围
-``` php
+```php
 /**
  * 获取自定义时间范围
  * @param $type 1:每天 2:每周 3:每月 4:每季 5:每年 6：上季度

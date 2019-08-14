@@ -9,7 +9,7 @@ categories:
   - 技术
   - PHP
 ---
-``` php
+```php
 <?php
 header('content-type:text/html;charset=utf-8');
 define('DB_HOST', '127.0.0.1');

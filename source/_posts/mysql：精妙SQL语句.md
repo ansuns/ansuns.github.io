@@ -11,7 +11,7 @@ categories:
  - mysql
 ---
 统计某个字段出现数量最多
-``` sql
+```sql
 SELECT * , COUNT( * ) AS count
 FROM ext_read_history
 WHERE cat_id =10
@@ -21,32 +21,32 @@ LIMIT 20;
 ```
 
 说明：复制表(只复制结构,源表名：a 新表名：b) 
-``` sql
+```sql
 select * into b from a where 1<>1 
 ```
 说明：拷贝表(拷贝数据,源表名：a 目标表名：b) 
-``` sql
+```sql
 insert into b(a, b, c) select d,e,f from b; 
 ```
 说明：显示文章、提交人和最后回复时间 
-``` sql
+```sql
 select a.title,a.username,b.adddate from table a,(select max(adddate) adddate from table where table.title=a.title) b 
 ```
 说明：外连接查询(表名1：a 表名2：b) 
-``` sql
+```sql
 select a.a, a.b, a.c, b.c, b.d, b.f from a LEFT OUT JOIN b ON a.a = b.c 
 ```
 说明：日程安排提前五分钟提醒 
-``` sql
+```sql
 select * from 日程安排 where datediff('minute',f开始时间,getdate())>5 
 ```
 
 说明：两张关联表，删除主表中已经在副表中没有的信息 
-``` sql
+```sql
 delete from info where not exists ( select * from infobz where info.infid=infobz.infid ) 
 ```
 说明：-- 
-``` sql
+```sql
 SELECT A.NUM, A.NAME, B.UPD_DATE, B.PREV_UPD_DATE 
 FROM TABLE1, 
 (SELECT X.NUM, X.UPD_DATE, Y.UPD_DATE PREV_UPD_DATE 
@@ -62,11 +62,11 @@ AND X.INBOUND_QTY + NVL(Y.STOCK_ONHAND,0) <> X.STOCK_ONHAND ) B
 WHERE A.NUM = B.NUM 
 ```
 说明：-- 
-``` sql
+```sql
 select * from studentinfo where not exists(select * from student where studentinfo.id=student.id) and 系名称='"&strdepartmentname&"' and 专业名称='"&strprofessionname&"' order by 性别,生源地,高考总成绩 
 说明：从数据库中去一年的各单位电话费统计(电话费定额贺电化肥清单两个表来源） 
 ```
-``` sql
+```sql
 SELECT a.userper, a.tel, a.standfee, TO_CHAR(a.telfeedate, 'yyyy') AS telyear, 
 SUM(decode(TO_CHAR(a.telfeedate, 'mm'), '01', a.factration)) AS JAN, 
 SUM(decode(TO_CHAR(a.telfeedate, 'mm'), '02', a.factration)) AS FRI, 
@@ -86,11 +86,11 @@ WHERE a.tel = b.telfax) a
 GROUP BY a.userper, a.tel, a.standfee, TO_CHAR(a.telfeedate, 'yyyy') ;
 ```
 说明：四表联查问题： 
-``` sql
+```sql
 select * from a left inner join b on a.a=b.b right inner join c on a.a=c.c inner join d on a.a=d.d where ..... 
 ```
 说明：得到表中最小的未使用的ID号 
-``` sql
+```sql
 SELECT (CASE WHEN EXISTS(SELECT * FROM Handle b WHERE b.HandleID = 1) THEN MIN(HandleID) + 1 ELSE 1 END) as HandleID 
 FROM Handle 
 WHERE NOT HandleID IN (SELECT a.HandleID - 1 FROM Handle a)
