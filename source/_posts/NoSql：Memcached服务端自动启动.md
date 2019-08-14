@@ -6,7 +6,8 @@ tags:
  - 后端
  - NoSql
 categories:
- - 技术
+ - 技术 
+ - Nosql
 ---
 
 经测试，要使得Memcached能够提供session共享服务，必须启动Memcached服务端为系统服务。本人较为初级，一般都是按向导安装的。

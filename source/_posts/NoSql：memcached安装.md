@@ -7,6 +7,7 @@ tags:
  - Nosql
 categories:
  - 技术
+ - Nosql
 ---
 
 ##### 1. 使用yum install 命令安装memcached #####
