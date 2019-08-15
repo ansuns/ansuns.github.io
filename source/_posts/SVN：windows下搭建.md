@@ -9,20 +9,20 @@ categories:
   - 版本控制
 ---
 #### 1. 基础 #### 
-##### 1.1. 安装服务端，安装客户端（小乌龟。。。） ##### 
-##### 1.2. 建立仓库：svnadmin create f:\web\shop ##### 
-##### 1.3. 启动仓库 svnserve -d -r f:\web\shop ##### 
-##### 1.4. shop\conf\svnserve.conf 约 12行 ##### 
-#anon-access = read 修改为 anon-access = write （前面不能含空格）意思是允许匿名提交 ##### 
-##### 1.5.checkout... ##### 
+#### 1.1. 安装服务端，安装客户端（小乌龟。。。） #### 
+#### 1.2. 建立仓库：svnadmin create f:\web\shop #### 
+#### 1.3. 启动仓库 svnserve -d -r f:\web\shop #### 
+#### 1.4. shop\conf\svnserve.conf 约 12行 #### 
+#anon-access = read 修改为 anon-access = write （前面不能含空格）意思是允许匿名提交 #### 
+#### 1.5. checkout... #### 
  
-#### 2.设置账户密码 #### 
-#### 2.1 引进配置文件**shop\conf\svnserve.conf**修改 #### 
+#### 2. 设置账户密码 #### 
+#### 2.1. 引进配置文件**shop\conf\svnserve.conf**修改 #### 
 #### 约20行 **password-db = passwd** 用户账户配置 #### 
 #### 约27行 **authz-db = authz** 权限配置 #### 
  
-#### 2.2 添加用户->修改 #### 
-/conf/passwd
+#### 2.2. 添加用户->修改 #### 
+**/conf/passwd**
 #添加用户
 ```bash
 [users]
@@ -33,8 +33,7 @@ a2 = 123
 ```
  
  
- 
-##### 2.3. 设置权限 ##### 
+#### 2.3. 设置权限 #### 
 修改->**conf/authz** 
 ```bash
 # 给svn仓库的用户设置权限
@@ -50,11 +49,10 @@ a2 = r
 * = 
 ```
  
- 
-##### 2.4. svnserve -d -r f:\web ##### 
+#### 2.4. svnserve -d -r f:\web #### 
 >这里启动多个仓库，所以web，而不是web\shop
  
-##### 2.5. commit or checkout ，就要输入用户名和密码了额 ##### 
+#### 2.5. commit or checkout ，就要输入用户名和密码了额 #### 
  
 ##### 2.6. 多个用户时进行组别设置 ##### 
  
@@ -76,7 +74,7 @@ anon-access = none
  
 然后就正常了。
  
-#### 3.设置某个目录权限，只允许访问该目录。。 #### 
+#### 3. 设置某个目录权限，只允许访问该目录 #### 
 #设置某个目录权限
 修改authz
 ```bash
