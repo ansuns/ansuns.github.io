@@ -1,7 +1,7 @@
 ---
 title: mysql语句：批量更新多条记录的不同值
 abbrlink: 1125adb3
-date: 2019-07-20 11:44:41
+date: 2016-03-25 14:57:41
 tags:
  - mysql
  - 数据库
