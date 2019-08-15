@@ -40,26 +40,26 @@ service solr status
 /data/solr_project/README.txt里有增加core，删除core重启
 **core**介绍
 **solr_cores**是**solr**存放**core**的目录
-新增core配置参考solr_cores/demo_core配置，修改conf里的managed-schema最后的字段信息
-新增core方法：复制demo_core，重命名为目标target_core，修改配置字段信息后，执行脚本./solr_s/add_core.sh target_core
-修改配置后需要重启solr，执行脚本./solr_cores/restart_solr.sh即可
-import_scripts存放导入core数据的脚本，对应core命名
-configs放置一些配置信息
-hnlog_文件夹存放索引更新的日志
-includes存放一些公用类
-扩展类添加到（如ik分词）/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib
-solr官方文档 http://wiki.apache.org/solr/FrontPage
+- 新增core配置参考solr_cores/demo_core配置，修改conf里的managed-schema最后的字段信息
+- 新增core方法：复制demo_core，重命名为目标target_core，修改配置字段信息后，执行脚本./solr_s/add_core.sh target_core
+- 修改配置后需要重启solr，执行脚本./solr_cores/restart_solr.sh即可
+- import_scripts存放导入core数据的脚本，对应core命名
+- configs放置一些配置信息
+- hnlog_文件夹存放索引更新的日志
+- includes存放一些公用类
+- 扩展类添加到（如ik分词）/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib
+
 
 #### 更新core的scheme字段配置与导数据 ####
-solr_project已加入版本控制:svn://192.168.2.231/solr_project
-配置文件，solr_project/solr_cores/demo_core/conf/managed-schema，对应demo_core
-修改字段配置后重启solr脚本./restart_solr.sh
-导数据脚本solr_project/import_scripts/demo_core.php,对应core名称
+- solr_project已加入版本控制:svn://192.168.2.231/solr_project
+- 配置文件，solr_project/solr_cores/demo_core/conf/managed-schema，对应demo_core
+- 修改字段配置后重启solr脚本./restart_solr.sh
+- 导数据脚本solr_project/import_scripts/demo_core.php,对应core名称
 
 #### 添加ik中文分词 ####
-将solr_project/inluces里的ik jar包放进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib
-将jar包中ext.dic IKAnalyzer.cfg.xml stopword.dic复制进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/classes
-solr_project/solr_cores/restart_solr.sh会将ext.dic、stopword.dic复制到上面的classes目录，自动更新扩展词库
+- 将solr_project/inluces里的ik jar包放进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib
+- 将jar包中ext.dic IKAnalyzer.cfg.xml stopword.dic复制进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/classes
+- solr_project/solr_cores/restart_solr.sh会将ext.dic、stopword.dic复制到上面的classes目录，自动更新扩展词库
 
 #### 整合**solarium** ####
 ```bash
