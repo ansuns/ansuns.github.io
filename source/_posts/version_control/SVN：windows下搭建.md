@@ -64,7 +64,8 @@ myusers = a1,a2,a3,a4,a5
 #@符表示组，而不是普通用户例如 a1
 #给组myusers 读写权限
 @myusers = rw
- 
+
+{% asset_img svn1.png 日志不正常 %}
 
 日志不正常。
 >关掉匿名用户：shop\conf\svnserve.conf 约 12行
@@ -73,7 +74,7 @@ anon-access = none
 ``
  
 然后就正常了。
- 
+{% asset_img svn2.png 正常 %}
 #### 3. 设置某个目录权限，只允许访问该目录 #### 
 #设置某个目录权限
 修改authz
@@ -86,10 +87,10 @@ w3 = rw
 ```
 
 保存后在用a1提交：
-
+{% asset_img svn3.png 提交 %}
 用w1提交：
-
- 
+{% asset_img svn4.png 11 %}
+{% asset_img svn5.png 22 %}
 #### 4. 设置SVN开机启动 #### 
 ```bash
 sc create svnd binPath= "C:/Program Files (x86)/Subversion/bin/svnserve.exe -r f:/web/ --service" start= auto 
