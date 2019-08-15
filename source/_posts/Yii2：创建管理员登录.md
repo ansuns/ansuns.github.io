@@ -5,7 +5,7 @@ tags:
   - PHP
   - 后端
 categories:
-  - 技术
+  - 后端
   - PHP
 abbrlink: 74d3977b
 date: 2019-07-14 19:13:00

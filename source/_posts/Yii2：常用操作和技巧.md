@@ -5,7 +5,7 @@ tags:
   - PHP
   - 后端
 categories:
-  - 技术
+  - 后端
   - PHP
 abbrlink: e550b6d2
 date: 2016-11-01 19:13:00

@@ -6,7 +6,7 @@ tags:
   - PHP
   - 后端
 categories:
-  - 技术
+  - 后端
   - PHP
 ---
 php混淆加密解密

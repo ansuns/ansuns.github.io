@@ -6,7 +6,7 @@ tags:
  - 后端
  - Composer
 categories:
- - 技术
+ - 后端
 ---
 ### 1. git-bash下composer命令无法使用的问题 ###
 已经安装composer，写好composer.bat，并且设置好了path，在cmd下可以正常使用，但是在git-bash里面不行，显示如下提示：

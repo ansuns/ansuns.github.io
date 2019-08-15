@@ -6,7 +6,7 @@ tags:
   - PHP
   - 后端
 categories:
-  - 技术
+  - 后端
   - PHP
 ---
 ##### 1. 让json_encode不转义斜杠 #####

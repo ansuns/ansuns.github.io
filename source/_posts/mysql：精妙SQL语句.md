@@ -7,7 +7,7 @@ tags:
  - 数据库
  
 categories:
- - 技术
+ - 后端
  - mysql
 ---
 统计某个字段出现数量最多

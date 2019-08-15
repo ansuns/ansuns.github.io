@@ -6,7 +6,7 @@ tags:
  - 后端
  - NoSql
 categories:
- - 技术
+ - 后端
 ---
 ```php
 <?php

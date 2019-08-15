@@ -6,7 +6,7 @@ tags:
  - 后端
  - Composer
 categories:
- - 技术
+ - 后端
 ---
 
 ##### 局部安装

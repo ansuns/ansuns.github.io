@@ -6,7 +6,7 @@ tags:
  - 后端
  - Nosql
 categories:
- - 技术
+ - 后端
  - Nosql
 ---
 
