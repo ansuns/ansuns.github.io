@@ -6,7 +6,7 @@ tags:
   - 全文检索
 categories:
   - PHP
-  - ThinkPHP
+  - 全文检索
 abbrlink: 51c1b2a2
 date: 2019-08-15 16:54:42
 ---
