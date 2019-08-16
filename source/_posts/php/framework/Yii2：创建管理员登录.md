@@ -8,7 +8,7 @@ categories:
   - 后端
   - PHP
 abbrlink: 74d3977b
-date: 2019-07-14 19:13:00
+date: 2017-09-14 22:13:00
 ---
 ##### 1. 创建管理员表  #####
 进入项目根目录，在根目录执行命令：
@@ -72,7 +72,8 @@ class InitController extends Controller
 ```bash
 $ ./yii init/admin
 ```
-  然后分别输入帐户、Email、登录密码，完成创建。
-![](../images/yii2-01.png)
+ 然后分别输入帐户、Email、登录密码，完成创建。
+ {% asset_img yii2-01.png 示例 %}
+
  
   
