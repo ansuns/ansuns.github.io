@@ -1,7 +1,7 @@
 ---
-title: NoSql-自己定义的memcached操作类
+title: memcached操作类
 abbrlink: cc768ab3
-date: 2019-07-19 14:08:51
+date: 2015-12-27 22:14:51
 tags:
  - 后端
  - NoSql

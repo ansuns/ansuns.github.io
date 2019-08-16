@@ -1,7 +1,7 @@
 ---
-title: NoSql-memcached安装
+title: centos下memcached安装
 abbrlink: bb47fb28
-date: 2019-07-19 14:07:14
+date: 2015-12-27 19:56:14
 tags:
  - 后端
  - Nosql

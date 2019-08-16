@@ -1,7 +1,7 @@
 ---
-title: NoSql-Memcached服务端自动启动
+title: Memcached服务端自动启动
 abbrlink: b1c887f1
-date: 2019-07-19 14:08:01
+date: 2015-12-28 12:56:01
 tags:
  - 后端
  - NoSql
