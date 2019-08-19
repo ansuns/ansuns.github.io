@@ -14,40 +14,45 @@ categories:
 abbrlink: 2293fa6a
 date: 2019-08-19 20:05:07
 ---
-步骤一：准备编译环境
+#1. 准备编译环境
 
 关闭防火墙
-运行systemctl status firewalld命令查看当前防火墙的状态。
+运行```systemctl status firewalld```命令查看当前防火墙的状态。
+{% asset_img 1.png  %}
+i. 
+- 如果防火墙的状态参数是inactive，则防火墙为关闭状态。
+- 如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。
+ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。
+- 如果您想临时关闭防火墙，运行命令```systemctl stop firewalld```。
+>说明 这只是暂时关闭防火墙，下次重启Linux后，防火墙还会开启。
 
-i.
-如果防火墙的状态参数是inactive，则防火墙为关闭状态。
-如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。
-ii.关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。
-如果您想临时关闭防火墙，运行命令systemctl stop firewalld。
-说明 这只是暂时关闭防火墙，下次重启Linux后，防火墙还会开启。
-
-如果您想永久关闭防火墙，运行命令systemctl disable firewalld。
-说明 如果您想重新开启防火墙，请参见firewalld官网信息。
-
+- 如果您想永久关闭防火墙，运行命令```systemctl disable firewalld```。
+>说明 如果您想重新开启防火墙，请参见**firewalld**官网信息。
 
 关闭SELinux。
-i.运行getenforce命令查看SELinux的当前状态。
+运行```getenforce```命令查看SELinux的当前状态。
+{% asset_img 2.png  %}
+
+ii. 
+- 如果SELinux状态参数是Disabled， 则SELinux为关闭状态。
+- 如果SELinux状态参数是Enforcing，则SELinux为开启状态。本示例中SELinux为开启状态，因此需要关闭SELinux。
+
+iii. 关闭SELinux。如果SELinux为关闭状态可以忽略此步骤。
+- 如果您想临时关闭SELinux，运行命令setenforce 0。
+
+> 说明 这只是暂时关闭SELinux，下次重启Linux后，SELinux还会开启。
+
+- 如果您想永久关闭SELinux，运行命令```vi /etc/selinux/config```编辑SELinux配置文件。回车后，把光标移动到SELINUX=enforcing这
+一行，按i键进入编辑模式，修改为```SELINUX=disabled```， 按Esc键，然后输入:wq并按Enter键以保存并关闭SELinux配置文件。
+> 说明 如果您想重新开启SELinux，请参见SELinux的官方文档。
+
+- 查看关闭状态
+{% asset_img 3.png  %}
+
+- 重启系统使设置生效。
 
 
-ii.
-如果SELinux状态参数是Disabled， 则SELinux为关闭状态。
-如果SELinux状态参数是Enforcing，则SELinux为开启状态。本示例中SELinux为开启状态，因此需要关闭SELinux。
-iii.关闭SELinux。如果SELinux为关闭状态可以忽略此步骤。
-如果您想临时关闭SELinux，运行命令setenforce 0。
-说明 这只是暂时关闭SELinux，下次重启Linux后，SELinux还会开启。
-
-如果您想永久关闭SELinux，运行命令vi /etc/selinux/config编辑SELinux配置文件。回车后，把光标移动到SELINUX=enforcing这一行，按i键进入编辑模式，修改为SELINUX=disabled， 按Esc键，然后输入:wq并按Enter键以保存并关闭SELinux配置文件。
-说明 如果您想重新开启SELinux，请参见SELinux的官方文档。
-
-i.重启系统使设置生效。
-
-
-下载软件：
+- 下载软件：
 ```bash
 wget -c https://www.php.net/distributions/php-7.3.8.tar.gz
 wget -c http://nginx.org/download/nginx-1.16.1.tar.gz
@@ -56,7 +61,8 @@ wget -c https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.7/mysql-5.7
 wget -c http://mirrors.163.com/mysql/Downloads/MySQL-5.7/mysql-boost-5.7.27.tar.gz
 ```
 
-安装编译环境
+#2. 安装Nginx
+- 安装编译环境
 ```bash
 yum -y install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel
 ```
@@ -90,26 +96,24 @@ cd /usr/lcaol/src/nginx-1.16.1
 --user=www \
 --group=www \
 --with-http_ssl_module \
-//--with-pcre=/usr/src/pcre-8.42
 ```
+>--with-pcre=/usr/src/pcre-8.42 # 不手动指定
 
+- 编译安装
 ```bash
 make && make install
 ```
 
-启动
+- 启动
 ```bash
 /usr/local/nginx/nginx
 ```
+{% asset_img 4.png  %}
 
-
-
-修改用户组
-https://www.bfshu.com/jcaz/123
-
-开机启动
-http://www.dohooe.com/2016/03/03/352.html?utm_source=tuicool&utm_medium=referral
-https://www.jianshu.com/p/ca5ee5f7075c
+>参考资料
+>- [centos7.2源码编译安装LNMP](https://www.bfshu.com/jcaz/123)
+>- [centos 7.x编写开机启动服务](http://www.dohooe.com/2016/03/03/352.html)
+>- [CentOS7设置nginx开机自启动](https://www.jianshu.com/p/ca5ee5f7075c)
 
 1、在系统服务目录里创建nginx.service文件
 ```bash
@@ -143,6 +147,8 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
+
+
 [Unit]:服务的说明
 Description:描述服务
 After:描述服务类别
@@ -155,21 +161,21 @@ PrivateTmp=True表示给服务分配独立的临时空间
 注意：[Service]的启动、重启、停止命令全部要求使用绝对路径
 [Install]运行级别下服务安装的相关设置，可设置为多用户，即系统运行级别为3
 保存退出。
-2.设置开机启动
-1	systemctl enable nginx.service
+2. 设置开机启动
+-	```systemctl enable nginx.service```
 3.其它命令
 启动nginx服务
-1	systemctl start nginx.service
+-	```systemctl start nginx.service```
 设置开机自启动
-1	systemctl enable nginx.service
+-	```systemctl enable nginx.service```
 停止开机自启动
-1	systemctl disable nginx.service
+-	```systemctl disable nginx.service```
 查看服务当前状态
-1	systemctl status nginx.service
+-	```systemctl status nginx.service```
 重新启动服务
-1	systemctl restart nginx.service
+-	```systemctl restart nginx.service```
 查看所有已启动的服务
-1	systemctl list-units --type=service
+-	```systemctl list-units --type=service```
 
 
 停止nginx
@@ -184,16 +190,18 @@ ln -s /usr/local/nginx/nginx /usr/bin/nginx
 
 
 
-二、MySQL安装
+#3. MySQL安装
 1、检查是否安装mariadb如安装则卸载
 ```bash
 yum list installed | grep mariadb 
 ```
+{% asset_img 5.png  %}
 
-删除
+>删除
 ```bash
 yum -y remove mariadb* boost-*
 ```
+{% asset_img 6.png  %}
 
 ```bash
 cd /usr/local/src/mysql-5.7.27/
@@ -267,19 +275,20 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
 make && make install
 ```
 尴尬了，虚拟机空间不足：
-
+{% asset_img 7.png  %}
 拷贝vdi到新目录执行命令：
 VBoxManage internalcommands sethduuid "D:\VirtualBox VMs\centos7Gome\centos7Gome.vdi"
 
 解决后继续：
 
 cmake执行完的结果
-
+{% asset_img 8.png  %}
 使用make命令进行编译，接下来你将经历漫长的等待
 
 安装完成
+{% asset_img 9.png  %}
 
-#拷贝可执行文件到指定的目录下，并修改名字为mysqld 
+##### 拷贝可执行文件到指定的目录下，并修改名字为mysqld 
 ```bash
 cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld #授予可执行的权限
 ```
@@ -373,18 +382,18 @@ log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 ```
 
-参考
-https://my.oschina.net/u/1429136/blog/738772
-https://www.jianshu.com/p/95a103add722
-https://www.bfshu.com/jcaz/123
+>参考资料
+>[在CentOS7上编译安装MySQL 5.7](https://my.oschina.net/u/1429136/blog/738772)
+>[在CentOS7上编译安装MySQL 5.7.13步骤详解](https://www.jianshu.com/p/95a103add722)
+>[centos7.2源码编译安装LNMP](https://www.bfshu.com/jcaz/123)
 
-初始化数据库
+- 初始化数据库 
 
 ```bash
 mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/mysql/data
 ```
 
-启动数据库：
+- 启动数据库：
 ```bash
 systemctl start mysqld
 ```
@@ -392,7 +401,8 @@ systemctl start mysqld
 ```bash
 systemctl status mysqld
 ```
-
+{% asset_img 10.png  %}
+{% asset_img 11.png  %}
 
 设置数据库root用户密码
 　　MySQL和Oracle数据库一样，数据库也默认自带了一个 root 用户（这个和当前Linux主机上的root用户是完全不搭边的），我们在设置好MySQL数据库的安全配置后初始化root用户的密码。配制过程中，一路输入 y 就行了。这里只说明下MySQL5.7.14版本中，用户密码策略分成低级 LOW 、中等 MEDIUM 和超强 STRONG 三种，推荐使用中等 MEDIUM 级别！
@@ -401,7 +411,7 @@ mysql_secure_installation
 至少长度为8包涵大小写字母和数字和特殊字符的密码
 Qwerty.1234
 
-安装PHP
+#4. 安装PHP
 安装php-fpm
 Nginx本身不能处理PHP，作为web服务器，当它接收到请求后，不支持对外部程序的直接调用或者解析，必须通过FastCGI进行调用。如果是PHP请求，则交给PHP解释器处理，并把结果返回给客户端。PHP-FPM是支持解析php的一个FastCGI进程管理器。提供了更好管理PHP进程的方式，可以有效控制内存和进程、可以平滑重载PHP配置。
 
@@ -415,21 +425,34 @@ yum -y install php-mcrypt libmcrypt libmcrypt-devel  autoconf  freetype gd l
 cd /usr/local/src/php-7.3.8/
 ```
 
-出现报错error：configure: error: Cannot find ldap libraries in /usr/lib. 
-解决方案：
-可能的原因是安装了64位的系统，在lib64下面有这个文件，可能在lib这文件夹里面没有，所以强制复制一次。
-cp -frp /usr/lib64/libldap* /usr/lib/
-可能报错：
+- 可能错误1:
+```bash
+error：configure: error: Cannot find ldap libraries in /usr/lib
+```
+>解决方案：可能的原因是安装了64位的系统，在lib64下面有这个文件，可能在lib这文件夹里面没有，所以强制复制一次。
+> ```cp -frp /usr/lib64/libldap* /usr/lib/```
+- 可能错误2:
 ```bash
 configure: error: Please reinstall the libzip distribution
 ```
+{% asset_img 12.png  %}
 
-#先删除旧版本
+> 解决方案：
 ```bash
+#先删除旧版本
 yum remove -y libzip
-````
- 
 #下载编译安装
+wget https://nih.at/libzip/libzip-1.2.0.tar.gz
+tar -zxvf libzip-1.2.0.tar.gz
+cd libzip-1.2.0
+./configure
+make && make install
+```
+- 可能错误3
+```bash
+configure: error: Please reinstall the libzip distribution
+```
+> 解决方案：
 ```bash
 wget https://nih.at/libzip/libzip-1.2.0.tar.gz
 tar -zxvf libzip-1.2.0.tar.gz
@@ -437,26 +460,30 @@ cd libzip-1.2.0
 ./configure
 make && make install
 ```
-
-configure: error: Please reinstall the libzip distribution
-1.#解决方法：
-2.wget https://nih.at/libzip/libzip-1.2.0.tar.gz
-3.tar -zxvf libzip-1.2.0.tar.gz
-4.cd libzip-1.2.0
-5../configure
-6.make && make install
-configure: error: off_t undefined; check your library configuration
-1.#解决方法
-2.# 添加搜索路径到配置文件
-3.echo '/usr/local/lib64
-4./usr/local/lib
-5./usr/lib
-6./usr/lib64'>>/etc/ld.so.conf
-7.# 更新配置
-8.ldconfig -v
-/usr/local/include/zip.h:59:21: fatal error: zipconf.h: No such file or dire
-1.#解决方法：手动复制过去
-2.cp /usr/local/lib/libzip/include/zipconf.h /usr/local/include/zipconf.h
+- 可能错误4
+```bash
+configure: error: off_t undefined; check your library configuration
+```
+> 解决方案：
+>>添加搜索路径到配置文件
+```bash
+echo '/usr/local/lib64
+/usr/local/lib
+/usr/lib
+/usr/lib64'>>/etc/ld.so.conf
+```
+>>更新配置
+```bash
+ldconfig -v
+```
+- 可能错误5
+```bash
+/usr/local/include/zip.h:59:21: fatal error: zipconf.h: No such file or dire
+```
+>解决方案：手动复制过去
+```bash
+cp /usr/local/lib/libzip/include/zipconf.h /usr/local/include/zipconf.h
+```
 
 预编译
 ```bash
