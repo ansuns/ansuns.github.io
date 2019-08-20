@@ -63,7 +63,7 @@ wget -c http://mirrors.163.com/mysql/Downloads/MySQL-5.7/mysql-boost-5.7.27.tar.
 ```
 
 #2. 安装Nginx
-- 安装编译环境
+安装编译环境
 ```bash
 yum -y install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel
 ```
@@ -100,12 +100,12 @@ cd /usr/lcaol/src/nginx-1.16.1
 ```
 >--with-pcre=/usr/src/pcre-8.42 # 不手动指定
 
-- 编译安装
+编译安装
 ```bash
 make && make install
 ```
 
-- 启动
+启动
 ```bash
 /usr/local/nginx/nginx
 ```
@@ -147,36 +147,32 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 ```
-
+保存退出。
 
 
 [Unit]:服务的说明
-Description:描述服务
-After:描述服务类别
-[Service]服务运行参数的设置
-Type=forking是后台运行的形式
-ExecStart为服务的具体运行命令
-ExecReload为重启命令
-ExecStop为停止命令
-PrivateTmp=True表示给服务分配独立的临时空间
-注意：[Service]的启动、重启、停止命令全部要求使用绝对路径
+- **Description**：描述服务
+**After**描述服务类别
+- [Service]服务运行参数的设置
+- **Type=forking**：是后台运行的形式
+- **ExecStart**：为服务的具体运行命令
+- **ExecReload**：为重启命令
+- **ExecStop**：为停止命令
+- **PrivateTmp=True**：表示给服务分配独立的临时空间
+- 注意：[Service]的启动、重启、停止命令全部要求使用绝对路径
 [Install]运行级别下服务安装的相关设置，可设置为多用户，即系统运行级别为3
-保存退出。
-2. 设置开机启动
--	```systemctl enable nginx.service```
+
+
+2.设置开机启动
+-	`systemctl enable nginx.service`
+
 3.其它命令
-启动nginx服务
--	```systemctl start nginx.service```
-设置开机自启动
--	```systemctl enable nginx.service```
-停止开机自启动
--	```systemctl disable nginx.service```
-查看服务当前状态
--	```systemctl status nginx.service```
-重新启动服务
--	```systemctl restart nginx.service```
-查看所有已启动的服务
--	```systemctl list-units --type=service```
+-	`systemctl start nginx.service` 　#启动nginx服务
+-	`systemctl enable nginx.service`　#设置开机自启动
+-	`systemctl disable nginx.service`　#停止开机自启动
+-	`systemctl status nginx.service`　#查看服务当前状态
+-	`systemctl restart nginx.service`　#重新启动服务
+-	systemctl list-units --type=service`　#查看所有已启动的服务
 
 
 停止nginx
@@ -220,16 +216,16 @@ groupadd -r mysql && useradd -r -g mysql -s /sbin/nologin -M mysql
 
 创建目录
 ```bash
-mkdir -vp /usr/mysql/{data,log,temp} #或分别依次创建
-```bash
-[root@centosGome ~]# mkdir -vp /usr/mysql/{data,log,temp}
+[root@centosGome ~]# mkdir -vp /usr/mysql/{data,log,temp} #或分别依次创建
 mkdir: 已创建目录 "/usr/mysql"
 mkdir: 已创建目录 "/usr/mysql/data" #数据存储目录
 mkdir: 已创建目录 "/usr/mysql/log" #日志目录
 mkdir: 已创建目录 "/usr/mysql/temp"
-chown -R mysql:mysql /usr/mysql # root用户将mysql目录归mysql用户所有
 ```
 
+```bash
+chown -R mysql:mysql /usr/mysql # root用户将mysql目录归mysql用户所有
+```
 
 如果不带Boots的mysql包，下载
 ```bash
@@ -388,21 +384,22 @@ pid-file=/var/run/mysqld/mysqld.pid
 >[在CentOS7上编译安装MySQL 5.7.13步骤详解](https://www.jianshu.com/p/95a103add722)
 >[centos7.2源码编译安装LNMP](https://www.bfshu.com/jcaz/123)
 
-- 初始化数据库 
-
+初始化数据库 
 ```bash
 mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/mysql/data
 ```
 
-- 启动数据库：
+启动数据库：
 ```bash
 systemctl start mysqld
 ```
 
+查看mysqld服务状态：
 ```bash
 systemctl status mysqld
 ```
 {% asset_img 10.png  %}
+
 {% asset_img 11.png  %}
 
 设置数据库root用户密码
@@ -426,13 +423,13 @@ yum -y install php-mcrypt libmcrypt libmcrypt-devel  autoconf  freetype gd l
 cd /usr/local/src/php-7.3.8/
 ```
 
-- 可能错误1:
+可能错误1:
 ```bash
 error：configure: error: Cannot find ldap libraries in /usr/lib
 ```
 >解决方案：可能的原因是安装了64位的系统，在lib64下面有这个文件，可能在lib这文件夹里面没有，所以强制复制一次。
 > ```cp -frp /usr/lib64/libldap* /usr/lib/```
-- 可能错误2:
+可能错误2:
 ```bash
 configure: error: Please reinstall the libzip distribution
 ```
@@ -449,7 +446,7 @@ cd libzip-1.2.0
 ./configure
 make && make install
 ```
-- 可能错误3
+可能错误3
 ```bash
 configure: error: Please reinstall the libzip distribution
 ```
@@ -461,7 +458,7 @@ cd libzip-1.2.0
 ./configure
 make && make install
 ```
-- 可能错误4
+可能错误4
 ```bash
 configure: error: off_t undefined; check your library configuration
 ```
@@ -477,7 +474,7 @@ echo '/usr/local/lib64
 ```bash
 ldconfig -v
 ```
-- 可能错误5
+可能错误5
 ```bash
 /usr/local/include/zip.h:59:21: fatal error: zipconf.h: No such file or dire
 ```
@@ -625,10 +622,10 @@ I			nclude fastcgi.conf;  #安装的时候没有，加上去
         }
 ```
 ```bash
-systemctl restart php-fpm
+systemctl restart php-fpm #重启php-fpm
 ```
 ```bash
-systemctl restart nginx
+systemctl restart nginx #重启ngingx
 ```
 
 - 搭建完成
