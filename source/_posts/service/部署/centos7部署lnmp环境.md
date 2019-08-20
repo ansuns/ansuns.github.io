@@ -16,21 +16,22 @@ date: 2019-08-19 20:05:07
 ---
 #1. 准备编译环境
 
-关闭防火墙
-运行```systemctl status firewalld```命令查看当前防火墙的状态。
+- 关闭防火墙
+运行
+`systemctl status firewalld`命令查看当前防火墙的状态。
 {% asset_img 1.png  %}
 i. 
 - 如果防火墙的状态参数是inactive，则防火墙为关闭状态。
 - 如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。
 ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。
-- 如果您想临时关闭防火墙，运行命令```systemctl stop firewalld```。
+- 如果您想临时关闭防火墙，运行命令`systemctl stop firewalld`。
 >说明 这只是暂时关闭防火墙，下次重启Linux后，防火墙还会开启。
 
-- 如果您想永久关闭防火墙，运行命令```systemctl disable firewalld```。
+- 如果您想永久关闭防火墙，运行命令`systemctl disable firewalld`。
 >说明 如果您想重新开启防火墙，请参见**firewalld**官网信息。
 
 关闭SELinux。
-运行```getenforce```命令查看SELinux的当前状态。
+运行`getenforce`命令查看SELinux的当前状态。
 {% asset_img 2.png  %}
 
 ii. 
@@ -42,8 +43,8 @@ iii. 关闭SELinux。如果SELinux为关闭状态可以忽略此步骤。
 
 > 说明 这只是暂时关闭SELinux，下次重启Linux后，SELinux还会开启。
 
-- 如果您想永久关闭SELinux，运行命令```vi /etc/selinux/config```编辑SELinux配置文件。回车后，把光标移动到SELINUX=enforcing这
-一行，按i键进入编辑模式，修改为```SELINUX=disabled```， 按Esc键，然后输入:wq并按Enter键以保存并关闭SELinux配置文件。
+- 如果您想永久关闭SELinux，运行命令`vi /etc/selinux/config`编辑SELinux配置文件。回车后，把光标移动到SELINUX=enforcing这
+一行，按i键进入编辑模式，修改为`SELINUX=disabled`， 按Esc键，然后输入:wq并按Enter键以保存并关闭SELinux配置文件。
 > 说明 如果您想重新开启SELinux，请参见SELinux的官方文档。
 
 - 查看关闭状态
@@ -629,3 +630,6 @@ systemctl restart php-fpm
 ```bash
 systemctl restart nginx
 ```
+
+- 搭建完成
+{% asset_img 13.png  %}
