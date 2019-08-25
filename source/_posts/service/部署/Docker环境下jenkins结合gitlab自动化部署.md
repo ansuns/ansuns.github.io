@@ -1,8 +1,18 @@
 ---
 title: Docker环境下jenkins结合gitlab自动化部署
 abbrlink: 93441cba
-date: 2019-08-16 11:55:56
+date: 2018-11-16 11:55:56
 tags:
+  - 部署
+  - PHP
+  - mysql
+  - nginx
+  - lnmp
+  - centos
+  - 服务器
+categories:
+  - 服务
+  - 部署
 ---
 # Windows下使用docker toolbox 或 win10使用Dockerinstaller 安装docekr
 - 安装 jenkins
