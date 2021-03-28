@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,PHP,部署,nginx,lnmp,centos,服务器,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#1. 准备编译环境  关闭防火墙运行systemctl status firewalld命令查看当前防火墙的状态。  i.   如果防火墙的状态参数是inactive，则防火墙为关闭状态。  如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。  如果您想临时关闭防火墙，运行命令system">
+<meta name="keywords" content="mysql,PHP,部署,nginx,lnmp,centos,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7部署lnmp环境">
+<meta property="og:url" content="http://yoursite.com/p/2293fa6a/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="#1. 准备编译环境  关闭防火墙运行systemctl status firewalld命令查看当前防火墙的状态。  i.   如果防火墙的状态参数是inactive，则防火墙为关闭状态。  如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。  如果您想临时关闭防火墙，运行命令system">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/1.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/2.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/3.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/4.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/5.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/6.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/7.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/8.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/9.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/10.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/11.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/12.png">
+<meta property="og:image" content="http://yoursite.com/p/2293fa6a/13.png">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.369Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7部署lnmp环境">
+<meta name="twitter:description" content="#1. 准备编译环境  关闭防火墙运行systemctl status firewalld命令查看当前防火墙的状态。  i.   如果防火墙的状态参数是inactive，则防火墙为关闭状态。  如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。  如果您想临时关闭防火墙，运行命令system">
+<meta name="twitter:image" content="http://yoursite.com/p/2293fa6a/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/2293fa6a/">
+
+
+
+
+
+  <title>centos7部署lnmp环境 | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/2293fa6a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos7部署lnmp环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-13T20:05:07+08:00">
+                2019-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务/" itemprop="url" rel="index">
+                    <span itemprop="name">服务</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务/部署/" itemprop="url" rel="index">
+                    <span itemprop="name">部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#1. 准备编译环境</p>
+<ul>
+<li><p>关闭防火墙<br>运行<br><code>systemctl status firewalld</code>命令查看当前防火墙的状态。</p>
+<img src="/p/2293fa6a/1.png">
+<p>i. </p>
+</li>
+<li><p>如果防火墙的状态参数是inactive，则防火墙为关闭状态。</p>
+</li>
+<li><p>如果防火墙的状态参数是active，则防火墙为开启状态。本示例中防火墙为开启状态，因此需要关闭防火墙。<br>ii. 关闭防火墙。如果防火墙为关闭状态可以忽略此步骤。</p>
+</li>
+<li><p>如果您想临时关闭防火墙，运行命令<code>systemctl stop firewalld</code>。</p>
+<blockquote>
+<p>说明 这只是暂时关闭防火墙，下次重启Linux后，防火墙还会开启。</p>
+</blockquote>
+</li>
+<li><p>如果您想永久关闭防火墙，运行命令<code>systemctl disable firewalld</code>。</p>
+<blockquote>
+<p>说明 如果您想重新开启防火墙，请参见<strong>firewalld</strong>官网信息。</p>
+</blockquote>
+</li>
+</ul>
+<p>关闭SELinux。<br>运行<code>getenforce</code>命令查看SELinux的当前状态。</p>
+<img src="/p/2293fa6a/2.png">
+
+<p>ii. </p>
+<ul>
+<li>如果SELinux状态参数是Disabled， 则SELinux为关闭状态。</li>
+<li>如果SELinux状态参数是Enforcing，则SELinux为开启状态。本示例中SELinux为开启状态，因此需要关闭SELinux。</li>
+</ul>
+<p>iii. 关闭SELinux。如果SELinux为关闭状态可以忽略此步骤。</p>
+<ul>
+<li>如果您想临时关闭SELinux，运行命令setenforce 0。</li>
+</ul>
+<blockquote>
+<p>说明 这只是暂时关闭SELinux，下次重启Linux后，SELinux还会开启。</p>
+</blockquote>
+<ul>
+<li><p>如果您想永久关闭SELinux，运行命令<code>vi /etc/selinux/config</code>编辑SELinux配置文件。回车后，把光标移动到SELINUX=enforcing这<br>一行，按i键进入编辑模式，修改为<code>SELINUX=disabled</code>， 按Esc键，然后输入:wq并按Enter键以保存并关闭SELinux配置文件。</p>
+<blockquote>
+<p>说明 如果您想重新开启SELinux，请参见SELinux的官方文档。</p>
+</blockquote>
+</li>
+<li><p>查看关闭状态</p>
+<img src="/p/2293fa6a/3.png">
+</li>
+<li><p>重启系统使设置生效。</p>
+</li>
+</ul>
+<ul>
+<li>下载软件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://www.php.net/distributions/php-7.3.8.tar.gz</span><br><span class="line">wget -c http://nginx.org/download/nginx-1.16.1.tar.gz</span><br><span class="line">wget -c https://ftp.pcre.org/pub/pcre/pcre-8.42.tar.gz</span><br><span class="line">wget -c https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.7/mysql-5.7.25.tar.gz</span><br><span class="line">wget -c http://mirrors.163.com/mysql/Downloads/MySQL-5.7/mysql-boost-5.7.27.tar.gz</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>#2. 安装Nginx<br>安装编译环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd www <span class="comment"># 添加用户组</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd www -g www -s /sbin/nologin -M <span class="comment">#-M 不要自动建立用户的登入目录 -g指定用户组</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf pcre.gz</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv pcre-8.42 /usr/src/pcre-8.42</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lcaol/src/nginx-1.16.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/<span class="built_in">local</span>/nginx \</span><br><span class="line">--sbin-path=/usr/<span class="built_in">local</span>/nginx/nginx \</span><br><span class="line">--conf-path=/usr/<span class="built_in">local</span>/nginx/nginx.conf \</span><br><span class="line">--pid-path=/usr/<span class="built_in">local</span>/nginx/nginx.pid \</span><br><span class="line">--user=www \</span><br><span class="line">--group=www \</span><br><span class="line">--with-http_ssl_module \</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>–with-pcre=/usr/src/pcre-8.42 # 不手动指定</p>
+</blockquote>
+<p>编译安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/nginx/nginx</span><br></pre></td></tr></table></figure>
+
+<img src="/p/2293fa6a/4.png">
+
+<blockquote>
+<p>参考资料</p>
+<ul>
+<li><a href="https://www.bfshu.com/jcaz/123" target="_blank" rel="noopener">centos7.2源码编译安装LNMP</a></li>
+<li><a href="http://www.dohooe.com/2016/03/03/352.html" target="_blank" rel="noopener">centos 7.x编写开机启动服务</a></li>
+<li><a href="https://www.jianshu.com/p/ca5ee5f7075c" target="_blank" rel="noopener">CentOS7设置nginx开机自启动</a></li>
+</ul>
+</blockquote>
+<p>1、在系统服务目录里创建nginx.service文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/nginx.service</span><br></pre></td></tr></table></figure>
+
+<p>2、写入内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#nginx服务配置到该文件中</span></span><br><span class="line"><span class="comment">#服务描述性的配置</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=nginx - high performance web server</span><br><span class="line">Documentation=http://nginx.org/en/docs/</span><br><span class="line">After=network.target remote-fs.target nss-lookup.target</span><br><span class="line"><span class="comment">#服务关键配置</span></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line"><span class="comment">#pid文件位置 </span></span><br><span class="line"><span class="comment">#要与nginx配置文件中的pid配置路径一致，这个很重要，否则会服务启动失败</span></span><br><span class="line">PIDFile=/usr/<span class="built_in">local</span>/nginx/nginx.pid</span><br><span class="line"><span class="comment">#启动前检测 nginx配置文件 是否正确</span></span><br><span class="line">ExecStartPre=/usr/<span class="built_in">local</span>/nginx/nginx -t -c /usr/<span class="built_in">local</span>/nginx/nginx.conf</span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/nginx/nginx -c /usr/<span class="built_in">local</span>/nginx/nginx.conf</span><br><span class="line"><span class="comment">#重启</span></span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></span><br><span class="line"><span class="comment">#关闭</span></span><br><span class="line">ExecStop=/bin/<span class="built_in">kill</span> -s QUIT <span class="variable">$MAINPID</span></span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>保存退出。</p>
+<ul>
+<li><strong>Description</strong>：描述服务</li>
+</ul>
+<p><strong>After</strong>描述服务类别</p>
+<ul>
+<li>[Service]服务运行参数的设置</li>
+<li><strong>Type=forking</strong>：是后台运行的形式</li>
+<li><strong>ExecStart</strong>：为服务的具体运行命令</li>
+<li><strong>ExecReload</strong>：为重启命令</li>
+<li><strong>ExecStop</strong>：为停止命令</li>
+<li><strong>PrivateTmp=True</strong>：表示给服务分配独立的临时空间</li>
+<li>注意：[Service]的启动、重启、停止命令全部要求使用绝对路径<br>[Install]运行级别下服务安装的相关设置，可设置为多用户，即系统运行级别为3</li>
+</ul>
+<p>2.设置开机启动</p>
+<ul>
+<li><code>systemctl enable nginx.service</code></li>
+</ul>
+<p>3.其它命令</p>
+<ul>
+<li><code>systemctl start nginx.service</code> 　#启动nginx服务</li>
+<li><code>systemctl enable nginx.service</code>　#设置开机自启动</li>
+<li><code>systemctl disable nginx.service</code>　#停止开机自启动</li>
+<li><code>systemctl status nginx.service</code>　#查看服务当前状态</li>
+<li><code>systemctl restart nginx.service</code>　#重新启动服务</li>
+<li>systemctl list-units –type=service`　#查看所有已启动的服务</li>
+</ul>
+<p>停止nginx</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/nginx/nginx -s stop</span><br></pre></td></tr></table></figure>
+
+<p>创建软链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/nginx/nginx /usr/bin/nginx</span><br></pre></td></tr></table></figure>
+
+<p>#3. MySQL安装<br>1、检查是否安装mariadb如安装则卸载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed | grep mariadb</span><br></pre></td></tr></table></figure>
+
+<img src="/p/2293fa6a/5.png">
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y remove mariadb* boost-*</span><br></pre></td></tr></table></figure>
+
+<img src="/p/2293fa6a/6.png">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/mysql-5.7.27/</span><br></pre></td></tr></table></figure>
+
+<p>2、安装依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y cmake make gcc gcc-c++ bison ncurses ncurses-devel</span><br></pre></td></tr></table></figure>
+
+<p>新建MySQL用户和用户组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd -r mysql &amp;&amp; useradd -r -g mysql -s /sbin/nologin -M mysql</span><br></pre></td></tr></table></figure>
+
+<p>创建目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centosGome ~]<span class="comment"># mkdir -vp /usr/mysql/&#123;data,log,temp&#125; #或分别依次创建</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/usr/mysql"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/usr/mysql/data"</span> <span class="comment">#数据存储目录</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/usr/mysql/log"</span> <span class="comment">#日志目录</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/usr/mysql/temp"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R mysql:mysql /usr/mysql <span class="comment"># root用户将mysql目录归mysql用户所有</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不带Boots的mysql包，下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://downloads.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>路径DWITH_BOOST修改为boots包的解压路径<br>接下来 预编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span>/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/usr/<span class="built_in">local</span>/mysql/data \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=boost \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_MEMORY_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_ARCHIVE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_FEDERATED_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_READLINE=1 \</span><br><span class="line">-DMYSQL_UNIX_ADDR=/usr/<span class="built_in">local</span>/mysql/mysql.sock \</span><br><span class="line">-DMYSQL_TCP_PORT=3306 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DENABLE_DTRACE=0 \</span><br><span class="line">-DEXTRA_CHARSETS=all \</span><br><span class="line">-DDEFAULT_CHARSET=utf8mb4 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8mb4_general_ci \</span><br><span class="line">-DMYSQL_USER=mysql</span><br></pre></td></tr></table></figure>
+
+<p>配置解释：<br>-DCMAKE_INSTALL_PREFIX=/usr/local/mysql    //设置安装目录<br>-DMYSQL_DATADIR=/home/mysql/data     //设置数据库存放目录<br>-DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock   //设置UNIX socket目录<br>-DDEFAULT_CHARSET=utf8mb4     //设置默认字符集<br>-DDEFAULT_COLLATION=utf8mb4_general_ci     //设置默认校对规则<br>-DWITH_INNOBASE_STORAGE_ENGINE=1    //添加InnoDB引擎支持<br>-DSYSCONFDIR=/etc    //设置my.cnf配置文件的所在目录，默认为安装目录<br>编译安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>尴尬了，虚拟机空间不足：</p>
+<img src="/p/2293fa6a/7.png">
+<p>拷贝vdi到新目录执行命令：<br>VBoxManage internalcommands sethduuid “D:\VirtualBox VMs\centos7Gome\centos7Gome.vdi”</p>
+<p>解决后继续：</p>
+<p>cmake执行完的结果</p>
+<img src="/p/2293fa6a/8.png">
+<p>使用make命令进行编译，接下来你将经历漫长的等待</p>
+<p>安装完成</p>
+<img src="/p/2293fa6a/9.png">
+
+<h5 id="拷贝可执行文件到指定的目录下，并修改名字为mysqld"><a href="#拷贝可执行文件到指定的目录下，并修改名字为mysqld" class="headerlink" title="拷贝可执行文件到指定的目录下，并修改名字为mysqld"></a>拷贝可执行文件到指定的目录下，并修改名字为mysqld</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/mysql/support-files/mysql.server /etc/init.d/mysqld <span class="comment">#授予可执行的权限</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/init.d/mysqld <span class="comment">#设置为开机启动 systemctl enable mysqld</span></span><br></pre></td></tr></table></figure>
+
+<p>添加环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile<span class="comment">#末尾添加以下内容#mysql env</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/mysql/bin:/usr/<span class="built_in">local</span>/mysql/lib</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#参考，具体里面的参数说明，请自行网上搜索</span></span><br><span class="line">[mysqld]</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_general_ci</span><br><span class="line"></span><br><span class="line">skip-external-locking</span><br><span class="line">skip-name-resolve</span><br><span class="line"></span><br><span class="line">user = mysql</span><br><span class="line">port = 3306</span><br><span class="line"></span><br><span class="line">basedir = /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">datadir = /usr/mysql/data</span><br><span class="line">tmpdir = /usr/mysql/temp</span><br><span class="line"><span class="comment"># server_id = .....</span></span><br><span class="line">socket = /usr/<span class="built_in">local</span>/mysql/mysql.sock</span><br><span class="line"><span class="built_in">log</span>-error = /usr/mysql/<span class="built_in">log</span>/mysql_error.log</span><br><span class="line">pid-file = /usr/mysql/data/mysql.pid</span><br><span class="line"></span><br><span class="line">open_files_limit = 10240</span><br><span class="line"></span><br><span class="line">back_log = 600</span><br><span class="line">max_connections=500</span><br><span class="line">max_connect_errors = 6000</span><br><span class="line">wait_timeout=605800</span><br><span class="line"></span><br><span class="line"><span class="comment">#open_tables = 600</span></span><br><span class="line"><span class="comment">#table_cache = 650</span></span><br><span class="line"><span class="comment">#opened_tables = 630</span></span><br><span class="line"></span><br><span class="line">max_allowed_packet = 32M</span><br><span class="line"></span><br><span class="line">sort_buffer_size = 4M</span><br><span class="line">join_buffer_size = 4M</span><br><span class="line">thread_cache_size = 300</span><br><span class="line">query_cache_type = 1</span><br><span class="line">query_cache_size = 256M</span><br><span class="line">query_cache_limit = 2M</span><br><span class="line">query_cache_min_res_unit = 16k</span><br><span class="line"></span><br><span class="line">tmp_table_size = 256M</span><br><span class="line">max_heap_table_size = 256M</span><br><span class="line"></span><br><span class="line">key_buffer_size = 256M</span><br><span class="line">read_buffer_size = 1M</span><br><span class="line">read_rnd_buffer_size = 16M</span><br><span class="line">bulk_insert_buffer_size = 64M</span><br><span class="line"></span><br><span class="line">lower_case_table_names=1</span><br><span class="line"></span><br><span class="line">default-storage-engine = INNODB</span><br><span class="line"></span><br><span class="line">innodb_buffer_pool_size = 1G</span><br><span class="line">innodb_log_buffer_size = 32M</span><br><span class="line">innodb_log_file_size = 128M</span><br><span class="line">innodb_flush_method = O_DIRECT</span><br><span class="line"></span><br><span class="line"><span class="comment">#####################</span></span><br><span class="line">long_query_time= 2</span><br><span class="line">slow-query-log = on</span><br><span class="line">slow-query-log-file = /usr/mysql/<span class="built_in">log</span>/mysql-slow.log</span><br><span class="line"></span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line">max_allowed_packet = 32M</span><br><span class="line"></span><br><span class="line">[mysqld_safe]</span><br><span class="line"><span class="built_in">log</span>-error=/var/<span class="built_in">log</span>/mysqld.log</span><br><span class="line">pid-file=/var/run/mysqld/mysqld.pid</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考资料<br><a href="https://my.oschina.net/u/1429136/blog/738772" target="_blank" rel="noopener">在CentOS7上编译安装MySQL 5.7</a><br><a href="https://www.jianshu.com/p/95a103add722" target="_blank" rel="noopener">在CentOS7上编译安装MySQL 5.7.13步骤详解</a><br><a href="https://www.bfshu.com/jcaz/123" target="_blank" rel="noopener">centos7.2源码编译安装LNMP</a></p>
+</blockquote>
+<p>初始化数据库 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize-insecure --user=mysql --basedir=/usr/<span class="built_in">local</span>/mysql --datadir=/usr/mysql/data</span><br></pre></td></tr></table></figure>
+
+<p>启动数据库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
+
+<p>查看mysqld服务状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mysqld</span><br></pre></td></tr></table></figure>
+
+<img src="/p/2293fa6a/10.png">
+
+<img src="/p/2293fa6a/11.png">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">设置数据库root用户密码</span><br><span class="line">　　MySQL和Oracle数据库一样，数据库也默认自带了一个 root 用户（这个和当前Linux主机上的root用户是完全不搭边的），我们在设置好</span><br><span class="line">MySQL数据库的安全配置后初始化root用户的密码。配制过程中，一路输入 y 就行了。这里只说明下MySQL5.7.14版本中，用户密码策略分成</span><br><span class="line">低级 LOW 、中等 MEDIUM 和超强 STRONG 三种，推荐使用中等 MEDIUM 级别！</span><br><span class="line">mysql_secure_installation*</span><br><span class="line">设置中等的话，一般是</span><br><span class="line">至少长度为8包涵大小写字母和数字和特殊字符的密码</span><br><span class="line">Qwerty.1234</span><br></pre></td></tr></table></figure>
+
+<p>#4. 安装PHP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装php-fpm</span><br><span class="line">Nginx本身不能处理PHP，作为web服务器，当它接收到请求后，不支持对外部程序的直接调用或者解析，必须通过FastCGI进行调用。如果是</span><br><span class="line">PHP请求，则交给PHP解释器处理，并把结果返回给客户端。PHP-FPM是支持解析php的一个FastCGI进程管理器。提供了更好管理PHP进程的</span><br><span class="line">方式，可以有效控制内存和进程、可以平滑重载PHP配置。</span><br></pre></td></tr></table></figure>
+
+<p>1、安装依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install php-mcrypt libmcrypt libmcrypt-devel  autoconf  freetype gd libmcrypt libpng libpng-devel libjpeg libxml2 libxml2-devel zlib curl curl-devel re2c net-snmp-devel libjpeg-devel php-ldap openldap-devel openldap-servers openldap-clients freetype-devel gmp-devel</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/php-7.3.8/</span><br></pre></td></tr></table></figure>
+
+<p>可能错误1:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error：configure: error: Cannot find ldap libraries <span class="keyword">in</span> /usr/lib</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解决方案：可能的原因是安装了64位的系统，在lib64下面有这个文件，可能在lib这文件夹里面没有，所以强制复制一次。</p>
+<figure class="highlight plain"><figcaption><span>-frp</span><a href="/usr/lib64/libldap*">/usr/lib/```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可能错误2:</span><br><span class="line">```bash</span><br><span class="line">configure: error: Please reinstall the libzip distribution</span><br></pre></td></tr></table></figure>
+</blockquote>
+<img src="/p/2293fa6a/12.png">
+
+<blockquote>
+<p>解决方案：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#先删除旧版本</span></span><br><span class="line">yum remove -y libzip</span><br><span class="line"><span class="comment">#下载编译安装</span></span><br><span class="line">wget https://nih.at/libzip/libzip-1.2.0.tar.gz</span><br><span class="line">tar -zxvf libzip-1.2.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> libzip-1.2.0</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>可能错误3</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please reinstall the libzip distribution</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解决方案：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://nih.at/libzip/libzip-1.2.0.tar.gz</span><br><span class="line">tar -zxvf libzip-1.2.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> libzip-1.2.0</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>可能错误4</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: off_t undefined; check your library configuration</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解决方案：</p>
+<blockquote>
+<p>添加搜索路径到配置文件</p>
+</blockquote>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'/usr/local/lib64</span></span><br><span class="line"><span class="string">/usr/local/lib</span></span><br><span class="line"><span class="string">/usr/lib</span></span><br><span class="line"><span class="string">/usr/lib64'</span>&gt;&gt;/etc/ld.so.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>更新配置</p>
+</blockquote>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldconfig -v</span><br></pre></td></tr></table></figure>
+
+<p>可能错误5</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/include/zip.h:59:21: fatal error: zipconf.h: No such file or dire</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解决方案：手动复制过去</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/lib/libzip/include/zipconf.h /usr/<span class="built_in">local</span>/include/zipconf.h</span><br></pre></td></tr></table></figure>
+
+<p>预编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/php \</span><br><span class="line">--with-config-file-path=/usr/<span class="built_in">local</span>/php/etc \</span><br><span class="line">--with-mysqli \</span><br><span class="line">--with-pdo-mysql \</span><br><span class="line">--with-mysql-sock=/usr/<span class="built_in">local</span>/mysql/mysql.sock \</span><br><span class="line">--with-iconv-dir \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-gmp \</span><br><span class="line">--with-zlib \</span><br><span class="line">--with-xmlrpc \</span><br><span class="line">--with-openssl \</span><br><span class="line">--without-pear \</span><br><span class="line">--with-snmp \</span><br><span class="line">--with-gettext \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-libxml-dir=/usr \</span><br><span class="line">--with-ldap \</span><br><span class="line">--with-ldap-sasl \</span><br><span class="line">--with-fpm-user=www \</span><br><span class="line">--with-fpm-group=www \</span><br><span class="line">--<span class="built_in">enable</span>-xml \</span><br><span class="line">--<span class="built_in">enable</span>-fpm  \</span><br><span class="line">--<span class="built_in">enable</span>-ftp \</span><br><span class="line">--<span class="built_in">enable</span>-bcmath \</span><br><span class="line">--<span class="built_in">enable</span>-soap \</span><br><span class="line">--<span class="built_in">enable</span>-shmop \</span><br><span class="line">--<span class="built_in">enable</span>-sysvsem \</span><br><span class="line">--<span class="built_in">enable</span>-sockets \</span><br><span class="line">--<span class="built_in">enable</span>-inline-optimization \</span><br><span class="line">--<span class="built_in">enable</span>-maintainer-zts \</span><br><span class="line">--<span class="built_in">enable</span>-mbregex \</span><br><span class="line">--<span class="built_in">enable</span>-mbstring \</span><br><span class="line">--<span class="built_in">enable</span>-pcntl \</span><br><span class="line">--<span class="built_in">enable</span>-zip \</span><br><span class="line">--<span class="built_in">disable</span>-fileinfo \</span><br><span class="line">--<span class="built_in">disable</span>-rpath \</span><br><span class="line">--<span class="built_in">enable</span>-libxml \</span><br><span class="line">--<span class="built_in">enable</span>-opcache \</span><br><span class="line">--<span class="built_in">enable</span>-mysqlnd</span><br></pre></td></tr></table></figure>
+
+<p>预编译结果：</p>
+<p>编译安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: ext/ldap/.libs/ldap.o: undefined reference to symbol <span class="string">'ber_strdup'</span></span><br><span class="line">//usr/lib64/liblber-2.4.so.2: error adding symbols: DSO missing from <span class="built_in">command</span> line</span><br><span class="line">collect2: error: ld returned 1 <span class="built_in">exit</span> status</span><br><span class="line">make: *** [sapi/cli/php] 错误 1</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：在PHP源码目录下 vim Makefile 找到 EXTRA_LIBS 行（带有很多参数的行），在行末添加 ‘ -llber ‘ 保存退出再次make即可。<br>解决办法：遇到这种类似的情况，说明「./configure 」沒抓好一些环境变数值。解决方法，来自老外的一篇文章：<br>在PHP源码目录下 vi Makefile 找到 EXTRA_LIBS 行，在行末添加 ‘ -llber ‘ 保存退出再次make即可</p>
+<p>安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7Gome php-7.3.8]<span class="comment"># make install</span></span><br><span class="line">Installing shared extensions:     /usr/<span class="built_in">local</span>/php/lib/php/extensions/no-debug-zts-20180731/</span><br><span class="line">Installing PHP CLI binary:        /usr/<span class="built_in">local</span>/php/bin/</span><br><span class="line">Installing PHP CLI man page:      /usr/<span class="built_in">local</span>/php/php/man/man1/</span><br><span class="line">Installing PHP FPM binary:        /usr/<span class="built_in">local</span>/php/sbin/</span><br><span class="line">Installing PHP FPM defconfig:     /usr/<span class="built_in">local</span>/php/etc/</span><br><span class="line">Installing PHP FPM man page:      /usr/<span class="built_in">local</span>/php/php/man/man8/</span><br><span class="line">Installing PHP FPM status page:   /usr/<span class="built_in">local</span>/php/php/php/fpm/</span><br><span class="line">Installing phpdbg binary:         /usr/<span class="built_in">local</span>/php/bin/</span><br><span class="line">Installing phpdbg man page:       /usr/<span class="built_in">local</span>/php/php/man/man1/</span><br><span class="line">Installing PHP CGI binary:        /usr/<span class="built_in">local</span>/php/bin/</span><br><span class="line">Installing PHP CGI man page:      /usr/<span class="built_in">local</span>/php/php/man/man1/</span><br><span class="line">Installing build environment:     /usr/<span class="built_in">local</span>/php/lib/php/build/</span><br><span class="line">Installing header files:          /usr/<span class="built_in">local</span>/php/include/php/</span><br><span class="line">Installing helper programs:       /usr/<span class="built_in">local</span>/php/bin/</span><br><span class="line">  program: phpize</span><br><span class="line">  program: php-config</span><br><span class="line">Installing man pages:             /usr/<span class="built_in">local</span>/php/php/man/man1/</span><br><span class="line">  page: phpize.1</span><br><span class="line">  page: php-config.1</span><br><span class="line">/usr/<span class="built_in">local</span>/src/php-7.3.8/build/shtool install -c ext/phar/phar.phar /usr/<span class="built_in">local</span>/php/bin</span><br><span class="line">ln -s -f phar.phar /usr/<span class="built_in">local</span>/php/bin/phar</span><br><span class="line">Installing PDO headers:           /usr/<span class="built_in">local</span>/php/include/php/ext/pdo/</span><br></pre></td></tr></table></figure>
+
+<p>配置<br>移动php配置文件的位置，并修改名<br>php-fpm.conf是 php-fpm 进程服务的配置文件<br><a href="http://www.conf是" target="_blank" rel="noopener">www.conf是</a> php-fpm 进程服务的扩展配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/php/etc/php-fpm.conf.default /usr/<span class="built_in">local</span>/php/etc/php-fpm.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/php/etc/php-fpm.d/www.conf.default /usr/<span class="built_in">local</span>/php/etc/php-fpm.d/www.conf</span><br></pre></td></tr></table></figure>
+
+<p>复制php.ini文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/src/php-7.3.8/php.ini-production /usr/<span class="built_in">local</span>/php/etc/php.ini</span><br></pre></td></tr></table></figure>
+
+<p>启动php-fpm</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7Gome php-7.3.8]<span class="comment"># ps -ef | grep php-fpm</span></span><br><span class="line">root      3201     1  0 17:55 ?        00:00:00 php-fpm: master process (/usr/<span class="built_in">local</span>/php/etc/php-fpm.conf)</span><br><span class="line">www       3202  3201  0 17:55 ?        00:00:00 php-fpm: pool www</span><br><span class="line">www       3203  3201  0 17:55 ?        00:00:00 php-fpm: pool www</span><br><span class="line">root      3205 12571  0 17:55 pts/0    00:00:00 grep --color=auto php-fpm</span><br></pre></td></tr></table></figure>
+
+<p>编辑vim /usr/local/nginx/nginx.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/<span class="built_in">local</span>/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.php index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ \.php$ &#123;</span><br><span class="line">            root           html;</span><br><span class="line">            fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">            fastcgi_index  index.php;</span><br><span class="line">            fastcgi_param  SCRIPT_FILENAME  /scripts<span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">            include        fastcgi_params;</span><br><span class="line">I			nclude fastcgi.conf;  <span class="comment">#安装的时候没有，加上去</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart php-fpm <span class="comment">#重启php-fpm</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx <span class="comment">#重启ngingx</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>搭建完成<img src="/p/2293fa6a/13.png"></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/部署/" rel="tag"># 部署</a>
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/lnmp/" rel="tag"># lnmp</a>
+          
+            <a href="/tags/centos/" rel="tag"># centos</a>
+          
+            <a href="/tags/服务器/" rel="tag"># 服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/977b1b01/" rel="next" title="centos7下redis5编译安装">
+                <i class="fa fa-chevron-left"></i> centos7下redis5编译安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#拷贝可执行文件到指定的目录下，并修改名字为mysqld"><span class="nav-number">1.</span> <span class="nav-text">拷贝可执行文件到指定的目录下，并修改名字为mysqld</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="solr,全文检索,SolrCloud,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SolrCloud5.5 部署#1.SolrCloud基本概念 摘自：http://www.it165.net/pro/html/201506/45483.html 1.1  SolrCloud相关概念 SolrCloud中有四个关键名词： core 、 collection 、 shard 、 node 。 core ：在Solr单机环境中，core本质上就是单个index。若需有多个index">
+<meta name="keywords" content="solr,全文检索,SolrCloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SolrCloud5.5部署和使用">
+<meta property="og:url" content="http://yoursite.com/p/d1504f96/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="SolrCloud5.5 部署#1.SolrCloud基本概念 摘自：http://www.it165.net/pro/html/201506/45483.html 1.1  SolrCloud相关概念 SolrCloud中有四个关键名词： core 、 collection 、 shard 、 node 。 core ：在Solr单机环境中，core本质上就是单个index。若需有多个index">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/1.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/2.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/3.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/4.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/5.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/6.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/7.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/8.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/9.jpg">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/10.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/11.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/12.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/13.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/14.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/15.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/16.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/17.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/18.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/19.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/20.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/21.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/22.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/24.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/25.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/26.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/27.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/28.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/29.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/30.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/31.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/32.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/33.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/34.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/35.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/36.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/37.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/38.png">
+<meta property="og:image" content="http://yoursite.com/p/d1504f96/39.png">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SolrCloud5.5部署和使用">
+<meta name="twitter:description" content="SolrCloud5.5 部署#1.SolrCloud基本概念 摘自：http://www.it165.net/pro/html/201506/45483.html 1.1  SolrCloud相关概念 SolrCloud中有四个关键名词： core 、 collection 、 shard 、 node 。 core ：在Solr单机环境中，core本质上就是单个index。若需有多个index">
+<meta name="twitter:image" content="http://yoursite.com/p/d1504f96/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/d1504f96/">
+
+
+
+
+
+  <title>SolrCloud5.5部署和使用 | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/d1504f96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SolrCloud5.5部署和使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-15T01:32:06+08:00">
+                2017-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/全文检索/" itemprop="url" rel="index">
+                    <span itemprop="name">全文检索</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SolrCloud5-5-部署"><a href="#SolrCloud5-5-部署" class="headerlink" title="SolrCloud5.5 部署"></a>SolrCloud5.5 部署</h1><p>#1.SolrCloud基本概念</p>
+<p>摘自：<a href="http://www.it165.net/pro/html/201506/45483.html" target="_blank" rel="noopener">http://www.it165.net/pro/html/201506/45483.html</a></p>
+<h2 id="1-1-SolrCloud相关概念"><a href="#1-1-SolrCloud相关概念" class="headerlink" title="1.1  SolrCloud相关概念"></a>1.1  SolrCloud相关概念</h2><p> SolrCloud中有四个关键名词： <strong>core</strong> 、 <strong>collection</strong> 、 <strong>shard</strong> 、 <strong>node</strong> 。</p>
+<p><strong>core</strong> ：在Solr单机环境中，core本质上就是单个index。若需有多个index，那必须创建多个core。在SolrCloud环境中，单个index可以横跨多个Solr实例，这意味着单个index是由不同机器上的多个cores组成。</p>
+<p><strong>collection</strong> ：由core组成的逻辑index叫做 <strong>collection</strong> ，一个collection是跨越多个cores的index，这使index可扩展并冗余备份。</p>
+<p><strong>shard</strong> ：在SolrCloud中可以有多个collections。Collections可被分片，每个分片可有多个副本（Replica），同一副本下的相同分片称为 <strong>shards</strong> 。每个shards下的有一个分片为leader，该leader通过选举策略产生。</p>
+<p><strong>node</strong> ：SolrCloud中，node是运行Solr的Java虚拟机实例，也就是Server（例如Tomcat、Jetty）。</p>
+<p>理解core和collection的区别非常重要。在传统的单node solr中，core和collection的概念等同，都代表一个逻辑index。在SolrCloud中，多个nodes下的cores形成一个collection。</p>
+<h2 id="1-2-SolrCloud路由"><a href="#1-2-SolrCloud路由" class="headerlink" title="1.2 SolrCloud路由"></a>1.2 SolrCloud路由</h2><p>SolrCloud中，提供了两种路由算法：</p>
+<p><strong>compositeIdimplicit</strong>  在创建Collection时，需要通过router.name指定路由策略，默认为compositeId路由。</p>
+<h4 id="compositeId"><a href="#compositeId" class="headerlink" title="compositeId"></a><strong>compositeId</strong></h4><p>该路由为一致性哈希路由，shards的哈希范围从80000000~7fffffff。初始创建collection是必须指定numShards，compositeId路由算法根据numShards的个数，计算出每个shard的哈希范围，因此路由策略不可以扩展shard。</p>
+<h4 id="implicit"><a href="#implicit" class="headerlink" title="implicit"></a><strong>implicit</strong></h4><p>该路由方式指定索引具体落在路由到哪个Shard，这与compositeId路由方式索引可均匀分布在每个shard上不同。同时 <strong>只有在implicit路由策略下才可</strong></p>
+<p>1.</p>
+<h1 id="2-Solr5-x和以前版本的区别"><a href="#2-Solr5-x和以前版本的区别" class="headerlink" title="2.Solr5.x和以前版本的区别"></a>2.Solr5.x和以前版本的区别</h1><p>摘自：<a href="http://www.tuicool.com/articles/aiYRJjv" target="_blank" rel="noopener">http://www.tuicool.com/articles/aiYRJjv</a></p>
+<p>solr5发布有一段时间了，5系列跟4的最大区别是5被发布成一个独立的应用，而不再需要Tomcat等容器，在其内部集成了一个jetty容器，现在它可以通过bin目录的脚本直接启动。</p>
+<p>solr5的应用方式有两种：独立模式（Standalone）和云模式（SolrCloud）。</p>
+<p>solr5的启动方式有两种，相应地其对索引的管理也有两种方式，在独立模式以是以core来管理，在云模式下是collection来管理。</p>
+<p>1.</p>
+<h1 id="3-部署流程【失败了】"><a href="#3-部署流程【失败了】" class="headerlink" title="3.部署流程【失败了】"></a>3.部署流程【失败了】</h1><ol>
+<li>3.1启动ZK集群</li>
+</ol>
+<h2 id="3-2-启动Solr"><a href="#3-2-启动Solr" class="headerlink" title="3.2 启动Solr"></a>3.2 启动Solr</h2><p>摘自：<a href="http://wenku.baidu.com/link?url=wRfVyDLuS15uoAruz9-HDgQ3w5MqJMCD52AYKaPWdNDHg_WJ_ciboXyfsedn6SrqERuy_dg4gstFYR8vj07dd_TkS6ais03Dsmqq-6_M8NW" target="_blank" rel="noopener">http://wenku.baidu.com/link?url=wRfVyDLuS15uoAruz9-HDgQ3w5MqJMCD52AYKaPWdNDHg_WJ_ciboXyfsedn6SrqERuy_dg4gstFYR8vj07dd_TkS6ais03Dsmqq-6_M8NW</a></p>
+<p>执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br><span class="line"></span><br><span class="line">[root@node2 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br><span class="line"></span><br><span class="line">[root@node1 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-创建Collection"><a href="#3-3-创建Collection" class="headerlink" title="3.3 创建Collection"></a>3.3 创建Collection</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 solr]<span class="comment"># ./bin/solr create\_collection -c example -d example/example-DIH/solr/solr/conf/ -shards 3 -replicationFactor 2</span></span><br></pre></td></tr></table></figure>
+
+<p>如果出现如下错误：</p>
+<img src="/p/d1504f96/1.png" title="错误">
+
+<p>请参考：</p>
+<p><a href="https://cwiki.apache.org/confluence/display/solr/Using+ZooKeeper+to+Manage+Configuration+Files" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/solr/Using+ZooKeeper+to+Manage+Configuration+Files</a>，</p>
+<p>在node1执行如下命令：为gettingstarted提交缺失的配置文件。</p>
+<table>
+<thead>
+<tr>
+<th>./server/scripts/cloud-scripts/zkcli.sh -cmd upconfig -confdir ./server/solr/configsets/data_driven_schema_configs/conf -confname myconf -z node1:2181,node2:2181,node3:2181./server/scripts/cloud-scripts/zkcli.sh -cmd linkconfig -collection gettingstarted -confname myconf -z node1:2181,node2:2181,node3:2181</th>
+</tr>
+</thead>
+</table>
+<p>再次创建collection</p>
+<img src="/p/d1504f96/2.png" title="再次创建collection">
+<p>命令参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>-c : collection名称-d : 配置文件的路径，可以使用上面提供的实例配置-n : 配置名称可以和collection名称不同，默认这个参数不填的话，会使用collection名称作为config名称-shards : 创建的shard个数，建议和集群节点数量一致。-replicationFactor : 每个shard的副本数，综合考虑为了保证集群的稳定性，建议配置为 最少2个，最多集群节点数量/shard数量 * 2</th>
+</tr>
+</thead>
+</table>
+<h2 id="3-4-使用含DIH配置的Collection"><a href="#3-4-使用含DIH配置的Collection" class="headerlink" title="3.4 使用含DIH配置的Collection"></a>3.4 使用含DIH配置的Collection</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 solr]<span class="comment"># ./bin/solr create\_collection -c example3 -d ./server/solr/configsets/fj\_collection/conf2/ -shards 3 -replicationFactor 2</span></span><br></pre></td></tr></table></figure>
+
+<p>启动ｃｌｏｕｄ样例后创建collection</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 solr]<span class="comment"># ./bin/solr create\_collection -c example -d ./server/solr/configsets/fj\_collection/conf/ -shards 2 -replicationFactor 2</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/solr create\_collection -c example -d ./server/solr/configsets/fj\_collection/conf/ -shards 2 -replicationFactor 2</span><br></pre></td></tr></table></figure>
+
+<p>错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| ERROR: Failed to create collection &amp;<span class="comment">#39;example&amp;#39; due to: org.apache.solr.client.solrj.impl.HttpSolrClient$RemoteSolrException:Error from server at http://192.168.232.129:7574/solr: Error CREATEing SolrCore &amp;#39;example\_shard2\_replica1&amp;#39;: Unable to create core [example\_shard2\_replica1] Caused by: Can&amp;#39;t find resource &amp;#39;lang/stopwords\_ar.txt&amp;#39; in classpath or &amp;#39;/configs/example&amp;#39;, cwd=/usr/local/src/solr-5.5.0/server |</span></span><br><span class="line">| --- |</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-验证"><a href="#3-5-验证" class="headerlink" title="3.5 验证"></a>3.5 验证</h2><p>查看collection创建结果如下：</p>
+<img src="/p/d1504f96/3.png" title="错误">
+
+<p>查看zookeeper中新增记录的example的状态：</p>
+<img src="/p/d1504f96/4.png" title="错误">
+<p>在三个节点中都新增了配置文件</p>
+<img src="/p/d1504f96/5.png" title="配置1">
+<img src="/p/d1504f96/6.png" title="配置2">
+<img src="/p/d1504f96/7.png" title="配置3">
+
+<p>1.</p>
+<h1 id="4-使用方法"><a href="#4-使用方法" class="headerlink" title="4. 使用方法"></a>4. 使用方法</h1><h2 id="4-1-向任意一台服务器发送请求"><a href="#4-1-向任意一台服务器发送请求" class="headerlink" title="4.1 向任意一台服务器发送请求"></a>4.1 向任意一台服务器发送请求</h2><p><a href="http://node3:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true" target="_blank" rel="noopener">http://node1:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true</a></p>
+<p><a href="http://node4:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true" target="_blank" rel="noopener">http://node2:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true</a></p>
+<p><a href="http://node5:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true" target="_blank" rel="noopener">http://node3:8983/solr/example/select?q=*%3A*&amp;wt=json&amp;indent=true</a></p>
+<p>其中：example=Collection名称</p>
+<img src="/p/d1504f96/8.png" title="错误">
+<p> 疑问：集群应该有统一入口地址，不应该区分IP地址。</p>
+<h2 id="4-2-访问SolrCloud的过程"><a href="#4-2-访问SolrCloud的过程" class="headerlink" title="4.2 访问SolrCloud的过程"></a>4.2 访问SolrCloud的过程</h2><img src="/p/d1504f96/9.jpg" title="错误">
+<p> 在SolrCloud模式下，同一个集群里所有Core的配置都是统一的，Core有leader和replication两种角色，每个core一定属于一个shard，Core在Shard中扮演leader还是replication有Solr使用的Zookeeper自动协调。</p>
+<p> 访问SolrCloud的过程是：Solr Client向Zookeeper咨询Collection的地址，Zookeeper返回存活的节点地址供访问，插入数据的时候有SolrCloud内部协调数据分发（内部使用一致性哈希）。</p>
+<p> SolrCloud中使用Zookeeper主要实现以下三点功能：（1）集中配置存储以及管理，（2）集群状态改变时进行监控以及通知，（3）shard leader的选举。</p>
+<h2 id="4-3-发送http请求的方式"><a href="#4-3-发送http请求的方式" class="headerlink" title="4.3 发送http请求的方式"></a>4.3 发送http请求的方式</h2><h2 id="4-4-客户端API查询方式"><a href="#4-4-客户端API查询方式" class="headerlink" title="4.4 客户端API查询方式"></a>4.4 客户端API查询方式</h2><p>摘自：<a href="http://www.656463.com/article/IvMvQv.htm" target="_blank" rel="noopener">http://www.656463.com/article/IvMvQv.htm</a></p>
+<h2 id="4-5-SolrCloud无法使用DIH和MySQL集成"><a href="#4-5-SolrCloud无法使用DIH和MySQL集成" class="headerlink" title="4.5 SolrCloud无法使用DIH和MySQL集成"></a>4.5 SolrCloud无法使用DIH和MySQL集成</h2><p> 使用福建测试环境下&quot;Solr单实例集成MySQL的配置文件&quot;做模板重新创建新的collection对象example2。</p>
+<p> 福建配置文件上传到node1的目录下/usr/local/src/solr-5.4.0/server/solr/configsets，作为example2的模板如下图：</p>
+<img src="/p/d1504f96/10.png" title="错误">
+
+<p>在node1，node2，node3所有节点执行如下操作：</p>
+<table>
+<thead>
+<tr>
+<th>(1)将solr-dataimporthandler-5.4.0.jar从solr/dist/文件夹下copy到solr/server/solr-webapp/webapp/WEB-INF/lib当中，此java包是导入数据用的。(2)从mysql官网中下载一个mysql-connector-java-5.1.34.zip压缩包，解压出一个mysql-connector-java-5.1.35-bin.jar包，将它copy到solr/server/lib下。</th>
+</tr>
+</thead>
+</table>
+<p>在node1上创建example2：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 solr]<span class="comment"># ./bin/solr create\_collection -c example2 -d server/solr/configsets/fj\_collection/conf/  -shards 3 -replicationFactor 2</span></span><br></pre></td></tr></table></figure>
+
+<p>页面验证：</p>
+<img src="/p/d1504f96/11.png" title="错误">
+
+<p>为MySQL数据创建索引</p>
+<blockquote>
+<p>solrtest1</p>
+</blockquote>
+<img src="/p/d1504f96/12.png" title="错误">
+
+<blockquote>
+<p>solrtest2 </p>
+</blockquote>
+<img src="/p/d1504f96/13.png" title="错误">
+
+
+<p>创建索引有问题</p>
+<img src="/p/d1504f96/14.png" title="错误">
+<p> 试验结果不成功，只能查到部分数据。</p>
+<h2 id="4-6-SolrCloud提供的URl命令"><a href="#4-6-SolrCloud提供的URl命令" class="headerlink" title="4.6 SolrCloud提供的URl命令"></a>4.6 SolrCloud提供的URl命令</h2><p>摘自：<a href="http://www.wtoutiao.com/p/15fprvf.html" target="_blank" rel="noopener">http://www.wtoutiao.com/p/15fprvf.html</a></p>
+<ol>
+<li><p>//查看zk里面的有多少个collection</p>
+</li>
+<li><p><a href="http://node1:8983/solr/admin/configs?action=LIST&amp;wt=json" target="_blank" rel="noopener">http://node1:8983/solr/admin/configs?action=LIST&amp;wt=json</a></p>
+</li>
+</ol>
+<p>返回：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"responseHeader"</span>:&#123;<span class="attr">"status"</span>:<span class="number">0</span>,<span class="attr">"QTime"</span>:<span class="number">45</span>&#125;,<span class="attr">"configSets"</span>:[<span class="string">"example2"</span>,<span class="string">"collection"</span>,<span class="string">"example"</span>,<span class="string">"test"</span>,<span class="string">"myconf"</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>//</li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:8983/solr/admin/configs?action=DELETE\&amp;amp;name=big\_search</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>摘自：<a href="https://cwiki.apache.org/confluence/display/solr/Collections+API" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/solr/Collections+API</a></p>
+<p>solrCloud提供了collection管理的url命令。</p>
+<h2 id="4-7-SolrCloud提供Client-API"><a href="#4-7-SolrCloud提供Client-API" class="headerlink" title="4.7 SolrCloud提供Client API"></a>4.7 SolrCloud提供Client API</h2><p>Solr提供了多种Client API，摘自：<a href="https://cwiki.apache.org/confluence/display/solr/Client+APIs" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/solr/Client+APIs</a></p>
+<img src="/p/d1504f96/15.png" title="错误">
+<p>有人推荐：spring-data-solr</p>
+<h2 id="4-8-SolrJ-5-4-0-客户端库"><a href="#4-8-SolrJ-5-4-0-客户端库" class="headerlink" title="4.8 SolrJ-5.4.0 客户端库"></a>4.8 SolrJ-5.4.0 客户端库</h2><p> 摘自：<a href="https://cwiki.apache.org/confluence/display/solr/Using+SolrJ" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/solr/Using+SolrJ</a></p>
+<p>maven配置</p>
+<table>
+<thead>
+<tr>
+<th>&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.solr&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;solr-solrj&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;x.y.z&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;</th>
+</tr>
+</thead>
+</table>
+<p>在solr安装文件夹中自带了solrj库的包，如下图：</p>
+<img src="/p/d1504f96/16.png" title="错误">
+<h3 id="4-8-1-SolrJ连接SolrCloud进行查询"><a href="#4-8-1-SolrJ连接SolrCloud进行查询" class="headerlink" title="4.8.1 SolrJ连接SolrCloud进行查询"></a>4.8.1 SolrJ连接SolrCloud进行查询</h3><p> 逻辑：SolrCloud部署三个节点上（node1，node2，node3），SolrJ通过zookeeper集群选举出SolrCloud中的一个leader节点，然后向该leader节点查询关键字。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**<span class="keyword">public</span>**** <span class="class"><span class="keyword">class</span> **<span class="title">SolrCloudTest</span> </span>&#123;       ** <span class="keyword">private</span> **CloudSolrClient cloudSolrServer =** <span class="keyword">null</span> **;       ** <span class="keyword">public</span>**<span class="function">CloudSolrClient <span class="title">getCloudSolrServer</span><span class="params">(**<span class="keyword">final</span>**String zkHost)</span> </span>&#123;                cloudSolrServer =**<span class="keyword">new</span>**CloudSolrClient(zkHost);               **<span class="keyword">return</span> **cloudSolrServer;        &#125;        <span class="comment">// 根据关键字查询索引结果       ** public ****void** search(CloudSolrClient solrServer, String String) &#123;                SolrQuery query = **new** SolrQuery();                query.setQuery(String);                **try** &#123;                        QueryResponse response = solrServer.query(query);                        SolrDocumentList docs = response.getResults();                         System._out_.println(&amp;quot;文档个数：&amp;quot; + docs.getNumFound());                        System._out_.println(&amp;quot;查询时间：&amp;quot; + response.getQTime());                         **for** (SolrDocument doc : docs) &#123;                                /\*\*                                \* 每个doc的结构 \&amp;lt;str name=&amp;quot;id&amp;quot;\&amp;gt;solrtest1\_3\&amp;lt;/str\&amp;gt;                                \* \&amp;lt;str name=&amp;quot;detail&amp;quot;\&amp;gt;李四睡觉\&amp;lt;/str\&amp;gt;                                \* \&amp;lt;str name=&amp;quot;tabletag&amp;quot;\&amp;gt;solrtest1\&amp;lt;/str\&amp;gt;                                \* \&amp;lt;str name=&amp;quot;position&amp;quot;\&amp;gt;25.09,116.2\&amp;lt;/str\&amp;gt;                                \* \&amp;lt;long name=&amp;quot;\_version\_&amp;quot;\&amp;gt;1528509412933632000\&amp;lt;/long\&amp;gt;                                \*/                                String id = (String) doc.getFieldValue(&amp;quot;id&amp;quot;);                                String detail = (String) doc.getFieldValue(&amp;quot;detail&amp;quot;);                                String tabletag = (String) doc.getFieldValue(&amp;quot;tabletag&amp;quot;);                                String position = (String) doc.getFieldValue(&amp;quot;position&amp;quot;);                                System._out_.println(&amp;quot;id=&amp;quot; + id + &amp;quot;, detail=&amp;quot; + detail                                                + &amp;quot;, tabletag=&amp;quot; + tabletag + &amp;quot;, position=&amp;quot; + position);                        &#125;                &#125; **catch** (SolrServerException e) &#123;                        e.printStackTrace();                &#125; **catch** (Exception e) &#123;                        System._out_.println(&amp;quot;Unknowned Exception!!!!&amp;quot;);                        e.printStackTrace();                &#125;        &#125;        /\*\*        \* **@param** args        \*/        **public**** static ****void** main(String[] args) &#123;                 String zkHost = &amp;quot;172.16.2.100:2181,172.16.2.101:2181,172.16.2.102:2181&amp;quot;;                **final** String defaultCollection = &amp;quot;example2&amp;quot;;                **final**** int **zkClientTimeout = 20000;               ** final ****int** zkConnectTimeout = 1000;                 **try** &#123;                        SolrCloudTest test = **new** SolrCloudTest();                        CloudSolrClient cloudSolrServer = test.getCloudSolrServer(zkHost);                         System._out_.println(&amp;quot;The Cloud SolrServer Instance has benn created!&amp;quot;);                        cloudSolrServer.setDefaultCollection(defaultCollection);                        cloudSolrServer.setZkClientTimeout(zkClientTimeout);                        cloudSolrServer.setZkConnectTimeout(zkConnectTimeout);                        cloudSolrServer.connect();                        System._out_.println(&amp;quot;The cloud Server has been connected !!!!&amp;quot;);                        test.search(cloudSolrServer, &amp;quot;\*:\*&amp;quot;);                        cloudSolrServer.shutdown();                        System._out_.println(&amp;quot;测试结束&amp;quot;);                &#125; **catch** (Exception e) &#123;                        e.printStackTrace();                &#125;        &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>| — |</p>
+<p><strong>查询结果:</strong></p>
+<table>
+<thead>
+<tr>
+<th>文档个数：2查询时间：70id=solrtest1_3, detail=李四睡觉, tabletag=solrtest1, position=25.09,116.2id=solrtest3_4, detail=赵六, tabletag=solrtest3, position=25.1,116.11测试结束</th>
+</tr>
+</thead>
+</table>
+<h3 id="4-8-2-SolrJ连接SolrCloud创建索引"><a href="#4-8-2-SolrJ连接SolrCloud创建索引" class="headerlink" title="4.8.2 SolrJ连接SolrCloud创建索引"></a>4.8.2 SolrJ连接SolrCloud创建索引</h3><img src="/p/d1504f96/17.png" title="错误">
+<p>1.</p>
+<h1 id="5-异常"><a href="#5-异常" class="headerlink" title="5.异常"></a>5.异常</h1><h2 id="5-1-This-IndexSchema-is-not-mutable"><a href="#5-1-This-IndexSchema-is-not-mutable" class="headerlink" title="5.1 This IndexSchema is not mutable"></a>5.1 This IndexSchema is not mutable</h2><img src="/p/d1504f96/18.png" title="错误">
+<img src="/p/d1504f96/19.png" title="错误">
+
+<p>摘自：<a href="http://stackoverflow.com/questions/31719955/solr-error-this-indexschema-is-not-mutable" target="_blank" rel="noopener">http://stackoverflow.com/questions/31719955/solr-error-this-indexschema-is-not-mutable</a></p>
+<p>在  <strong>solrConfig.xml中删除如下配置：原因是不允许手动添加ｆｉｅｌｄ</strong></p>
+<table>
+<thead>
+<tr>
+<th>&amp;lt;!–     &amp;lt;processor class=&quot;solr.AddSchemaFieldsUpdateProcessorFactory&quot;&amp;gt;      &amp;lt;str name=&quot;defaultFieldType&quot;&amp;gt;strings&amp;lt;/str&amp;gt;      &amp;lt;lst name=&quot;typeMapping&quot;&amp;gt;        &amp;lt;str name=&quot;valueClass&quot;&amp;gt;java.lang.Boolean&amp;lt;/str&amp;gt;        &amp;lt;str name=&quot;fieldType&quot;&amp;gt;booleans&amp;lt;/str&amp;gt;      &amp;lt;/lst&amp;gt;      &amp;lt;lst name=&quot;typeMapping&quot;&amp;gt;        &amp;lt;str name=&quot;valueClass&quot;&amp;gt;java.util.Date&amp;lt;/str&amp;gt;        &amp;lt;str name=&quot;fieldType&quot;&amp;gt;tdates&amp;lt;/str&amp;gt;      &amp;lt;/lst&amp;gt;      &amp;lt;lst name=&quot;typeMapping&quot;&amp;gt;        &amp;lt;str name=&quot;valueClass&quot;&amp;gt;java.lang.Long&amp;lt;/str&amp;gt;        &amp;lt;str name=&quot;valueClass&quot;&amp;gt;java.lang.Integer&amp;lt;/str&amp;gt;        &amp;lt;str name=&quot;fieldType&quot;&amp;gt;tlongs&amp;lt;/str&amp;gt;      &amp;lt;/lst&amp;gt;      &amp;lt;lst name=&quot;typeMapping&quot;&amp;gt;        &amp;lt;str name=&quot;valueClass&quot;&amp;gt;java.lang.Number&amp;lt;/str&amp;gt;        &amp;lt;str name=&quot;fieldType&quot;&amp;gt;tdoubles&amp;lt;/str&amp;gt;      &amp;lt;/lst&amp;gt;    &amp;lt;/processor&amp;gt;     –&amp;gt;</th>
+</tr>
+</thead>
+</table>
+<h2 id="5-2-PeerSync-core-example-shard3-replica2-url-http-192-168-232-129-8983-solr-ERROR-​-update-log-not-in-ACTIVE-or-REPLAY-state-FSUpdateLog-state-BUFFERING-​-tlog-null"><a href="#5-2-PeerSync-core-example-shard3-replica2-url-http-192-168-232-129-8983-solr-ERROR-​-update-log-not-in-ACTIVE-or-REPLAY-state-FSUpdateLog-state-BUFFERING-​-tlog-null" class="headerlink" title="5.2 PeerSync: core=example_shard3_replica2 url=http://192.168.232.129:8983/solr ERROR,​ update log not in ACTIVE or REPLAY state. FSUpdateLog{state=BUFFERING,​ tlog=null}"></a>5.2 PeerSync: core=example_shard3_replica2 url=<a href="http://192.168.232.129:8983/solr" target="_blank" rel="noopener">http://192.168.232.129:8983/solr</a> ERROR,​ update log not in ACTIVE or REPLAY state. FSUpdateLog{state=BUFFERING,​ tlog=null}</h2><img src="/p/d1504f96/20.png" title="错误">
+
+<h2 id="5-3-配置文件缺失admin-extra-menu-bottom-html、admin-extra-menu-top-html、admin-extra-html"><a href="#5-3-配置文件缺失admin-extra-menu-bottom-html、admin-extra-menu-top-html、admin-extra-html" class="headerlink" title="5.3 配置文件缺失admin-extra.menu-bottom.html、admin-extra.menu-top.html、admin-extra.html"></a>5.3 配置文件缺失admin-extra.menu-bottom.html、admin-extra.menu-top.html、admin-extra.html</h2><img src="/p/d1504f96/21.png" title="错误">
+<p>解决方法：在conf文件夹中创建以上三个空文件即可，这些文件是Solr admin管理页面需要的。摘自：<a href="http://stackoverflow.com/questions/26597813/how-can-i-get-rid-of-can-not-find-admin-extra-html-error" target="_blank" rel="noopener">http://stackoverflow.com/questions/26597813/how-can-i-get-rid-of-can-not-find-admin-extra-html-error</a></p>
+<h2 id="5-4-bad-request"><a href="#5-4-bad-request" class="headerlink" title="5.4 bad request"></a>5.4 bad request</h2><img src="/p/d1504f96/22.png" title="错误">
+<p>1.</p>
+<h1 id="6-单机SolrCloud部署流程【成功了】"><a href="#6-单机SolrCloud部署流程【成功了】" class="headerlink" title="6. 单机SolrCloud部署流程【成功了】"></a>6. 单机SolrCloud部署流程【成功了】</h1><h2 id="6-1环境"><a href="#6-1环境" class="headerlink" title="6.1环境"></a>6.1环境</h2><p>Solr5.4升级到新版本Solr5.5</p>
+<p>内嵌Zookeeper</p>
+<p>借助内嵌ZK实现单机上部署多节点SolrCloud。</p>
+<h2 id="6-2配置文件"><a href="#6-2配置文件" class="headerlink" title="6.2配置文件"></a>6.2配置文件</h2><p>在configsets\data_driven_schema_configs\conf文件基础上添加DIH的配置。</p>
+<p>新建文件夹</p>
+<img src="/p/d1504f96/24.png" title="错误">
+<h2 id="6-3-运行命令"><a href="#6-3-运行命令" class="headerlink" title="6.3 运行命令"></a>6.3 运行命令</h2><p>注意不需要执行./bin/solr start –c，启动SolrCloud就可以直接执行如下步骤。</p>
+<img src="/p/d1504f96/25.png" title="步骤">
+<img src="/p/d1504f96/26.png" title="步骤">
+<img src="/p/d1504f96/27.png" title="步骤">
+<img src="/p/d1504f96/28.png" title="步骤">
+<h2 id="6-4-验证"><a href="#6-4-验证" class="headerlink" title="6.4 验证"></a>6.4 验证</h2><img src="/p/d1504f96/29.png" title="步骤">
+<p>导入：</p>
+<img src="/p/d1504f96/30.png" title="步骤">
+<p>查询：</p>
+<img src="/p/d1504f96/31.png" title="步骤">
+<p>运行日志没有任何错误；</p>
+<img src="/p/d1504f96/32.png" title="步骤">
+<h2 id="6-5-重启服务"><a href="#6-5-重启服务" class="headerlink" title="6.5 重启服务"></a>6.5 重启服务</h2><p>由于 上面创建的是范例程序，所以启动命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 solr-5.5.0]<span class="comment">#  ./bin/solr start -e cloud -noprompt</span></span><br></pre></td></tr></table></figure>
+
+<img src="/p/d1504f96/33.png" title="步骤">
+<p>1.</p>
+<h1 id="7-多机SolrCloud部署流程-成功"><a href="#7-多机SolrCloud部署流程-成功" class="headerlink" title="7. 多机SolrCloud部署流程[成功]"></a>7. 多机SolrCloud部署流程[成功]</h1><h2 id="7-1-环境"><a href="#7-1-环境" class="headerlink" title="7.1 环境"></a>7.1 环境</h2><p>版本Solr5.5</p>
+<p>三节点Solr+三节点Zookeeper，搭建SolrCloud。</p>
+<p> 为了不影响node3上已经成功的单节点SolrCloud，故保留源文件夹/usr/local/src/solr-5.5.0。</p>
+<p> 多节点部署的文件夹使用/usr/local/src/solr-5.5.0-2。</p>
+<p> 必须jdk1.7以上</p>
+<h2 id="7-2-配置文件"><a href="#7-2-配置文件" class="headerlink" title="7.2 配置文件"></a>7.2 配置文件</h2><p>在configsets\data_driven_schema_configs\conf文件基础上添加DIH的配置。</p>
+<p>在如下位置新建文件夹</p>
+<img src="/p/d1504f96/34.png" title="步骤">
+<h2 id="7-2-jar包"><a href="#7-2-jar包" class="headerlink" title="7.2 jar包"></a>7.2 jar包</h2><p>【1】将solr-dataimporthandler-5.5.0.jar和solr-dataimporthandler-extras-5.5.0.jar从solr/dist/文件夹下copy到solr/server/solr-webapp/webapp/WEB-INF/lib当中，此java包是导入数据用的。</p>
+<p>【2】从mysql官网中下载一个mysql-connector-java-5.1.35.zip压缩包，解压出一个mysql-connector-java-5.1.35-bin.jar包，将它copy到solr/server/lib下。</p>
+<h2 id="6-3-启动ZK集群"><a href="#6-3-启动ZK集群" class="headerlink" title="6.3 启动ZK集群"></a>6.3 启动ZK集群</h2><h2 id="6-4-运行命令"><a href="#6-4-运行命令" class="headerlink" title="6.4 运行命令"></a>6.4 运行命令</h2><p>启动solrcloud</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br><span class="line"></span><br><span class="line">[root@node2 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br><span class="line"></span><br><span class="line">[root@node3 solr]<span class="comment"># ./bin/solr start -c -z node1:2181,node2:2181,node3:2181</span></span><br></pre></td></tr></table></figure>
+
+<img src="/p/d1504f96/35.png" title="步骤">
+<p>在node1节点执行如下命令：</p>
+<p>| 当创建collection出现异常时执行如下命令： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./server/scripts/cloud-scripts/zkcli.sh -cmd upconfig -confdir ./server/solr/configsets/fj\_collection/conf -confname myconf -z node1:2181,node2:2181,node3:2181 ./server/scripts/cloud-scripts/zkcli.sh -cmd linkconfig -collection gettingstarted -confname myconf -z node1:2181,node2:2181,node3:2181</span><br></pre></td></tr></table></figure>
+
+<p>创建名称为gettingstarted2 的collection</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/solr create\_collection -c gettingstarted2 -d ./server/solr/configsets/fj\_collection/conf/ -shards 3 -replicationFactor 2</span><br></pre></td></tr></table></figure>
+
+<p>创建名称为bjtcda的collection</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/solr create\_collection -c bjtcda<span class="_">-d</span> ./server/solr/configsets/fj\_collection/conf/ -shards 3 -replicationFactor 2 |</span><br></pre></td></tr></table></figure>
+
+<p>| — |</p>
+<p>导入数据</p>
+<img src="/p/d1504f96/36.png" title="步骤">
+<p>验证</p>
+<img src="/p/d1504f96/37.png" title="步骤">
+<p>查询</p>
+<img src="/p/d1504f96/38.png" title="步骤">
+<p>后台不报错</p>
+<img src="/p/d1504f96/39.png" title="步骤">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/solr create\_collection -c gettingstarted3 -d ./server/solr/configsets/fj\_collection/conf/ -shards 3 -replicationFactor 2</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+            <a href="/tags/全文检索/" rel="tag"># 全文检索</a>
+          
+            <a href="/tags/SolrCloud/" rel="tag"># SolrCloud</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/74d3977b/" rel="next" title="Yii2创建管理员登录">
+                <i class="fa fa-chevron-left"></i> Yii2创建管理员登录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/1d9fbb6a/" rel="prev" title="Docker基础">
+                Docker基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SolrCloud5-5-部署"><span class="nav-number">1.</span> <span class="nav-text">SolrCloud5.5 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-SolrCloud相关概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  SolrCloud相关概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-SolrCloud路由"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 SolrCloud路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compositeId"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">compositeId</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#implicit"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">implicit</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Solr5-x和以前版本的区别"><span class="nav-number">2.</span> <span class="nav-text">2.Solr5.x和以前版本的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-部署流程【失败了】"><span class="nav-number">3.</span> <span class="nav-text">3.部署流程【失败了】</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-启动Solr"><span class="nav-number">3.1.</span> <span class="nav-text">3.2 启动Solr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-创建Collection"><span class="nav-number">3.2.</span> <span class="nav-text">3.3 创建Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-使用含DIH配置的Collection"><span class="nav-number">3.3.</span> <span class="nav-text">3.4 使用含DIH配置的Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-验证"><span class="nav-number">3.4.</span> <span class="nav-text">3.5 验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-使用方法"><span class="nav-number">4.</span> <span class="nav-text">4. 使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-向任意一台服务器发送请求"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 向任意一台服务器发送请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-访问SolrCloud的过程"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 访问SolrCloud的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-发送http请求的方式"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 发送http请求的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-客户端API查询方式"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 客户端API查询方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-SolrCloud无法使用DIH和MySQL集成"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 SolrCloud无法使用DIH和MySQL集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-SolrCloud提供的URl命令"><span class="nav-number">4.6.</span> <span class="nav-text">4.6 SolrCloud提供的URl命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-SolrCloud提供Client-API"><span class="nav-number">4.7.</span> <span class="nav-text">4.7 SolrCloud提供Client API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-SolrJ-5-4-0-客户端库"><span class="nav-number">4.8.</span> <span class="nav-text">4.8 SolrJ-5.4.0 客户端库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-1-SolrJ连接SolrCloud进行查询"><span class="nav-number">4.8.1.</span> <span class="nav-text">4.8.1 SolrJ连接SolrCloud进行查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-2-SolrJ连接SolrCloud创建索引"><span class="nav-number">4.8.2.</span> <span class="nav-text">4.8.2 SolrJ连接SolrCloud创建索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-异常"><span class="nav-number">5.</span> <span class="nav-text">5.异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-This-IndexSchema-is-not-mutable"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 This IndexSchema is not mutable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-PeerSync-core-example-shard3-replica2-url-http-192-168-232-129-8983-solr-ERROR-​-update-log-not-in-ACTIVE-or-REPLAY-state-FSUpdateLog-state-BUFFERING-​-tlog-null"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 PeerSync: core=example_shard3_replica2 url=http://192.168.232.129:8983/solr ERROR,​ update log not in ACTIVE or REPLAY state. FSUpdateLog{state=BUFFERING,​ tlog=null}</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-配置文件缺失admin-extra-menu-bottom-html、admin-extra-menu-top-html、admin-extra-html"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 配置文件缺失admin-extra.menu-bottom.html、admin-extra.menu-top.html、admin-extra.html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-bad-request"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 bad request</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-单机SolrCloud部署流程【成功了】"><span class="nav-number">6.</span> <span class="nav-text">6. 单机SolrCloud部署流程【成功了】</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1环境"><span class="nav-number">6.1.</span> <span class="nav-text">6.1环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2配置文件"><span class="nav-number">6.2.</span> <span class="nav-text">6.2配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-运行命令"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 运行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-验证"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-重启服务"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 重启服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-多机SolrCloud部署流程-成功"><span class="nav-number">7.</span> <span class="nav-text">7. 多机SolrCloud部署流程[成功]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-环境"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-配置文件"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-jar包"><span class="nav-number">7.3.</span> <span class="nav-text">7.2 jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-启动ZK集群"><span class="nav-number">7.4.</span> <span class="nav-text">6.3 启动ZK集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-运行命令"><span class="nav-number">7.5.</span> <span class="nav-text">6.4 运行命令</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

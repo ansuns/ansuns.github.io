@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="后端,NoSql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="经测试，要使得Memcached能够提供session共享服务，必须启动Memcached服务端为系统服务。本人较为初级，一般都是按向导安装的。 所以，要将其设为自动启动的服务也就困难了。上网搜索了一下，结果，得到以下一些结果，做个记录： 1、最傻的做法通常：启动Memcache的服务器端的命令为： 1# /usr/local/bin/memcached -d -m 10 -u root -l 1">
+<meta name="keywords" content="后端,NoSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Memcached服务端自动启动">
+<meta property="og:url" content="http://yoursite.com/p/b1c887f1/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="经测试，要使得Memcached能够提供session共享服务，必须启动Memcached服务端为系统服务。本人较为初级，一般都是按向导安装的。 所以，要将其设为自动启动的服务也就困难了。上网搜索了一下，结果，得到以下一些结果，做个记录： 1、最傻的做法通常：启动Memcache的服务器端的命令为： 1# /usr/local/bin/memcached -d -m 10 -u root -l 1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Memcached服务端自动启动">
+<meta name="twitter:description" content="经测试，要使得Memcached能够提供session共享服务，必须启动Memcached服务端为系统服务。本人较为初级，一般都是按向导安装的。 所以，要将其设为自动启动的服务也就困难了。上网搜索了一下，结果，得到以下一些结果，做个记录： 1、最傻的做法通常：启动Memcache的服务器端的命令为： 1# /usr/local/bin/memcached -d -m 10 -u root -l 1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/b1c887f1/">
+
+
+
+
+
+  <title>Memcached服务端自动启动 | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/b1c887f1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Memcached服务端自动启动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-28T12:56:01+08:00">
+                2015-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/Nosql/" itemprop="url" rel="index">
+                    <span itemprop="name">Nosql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经测试，要使得Memcached能够提供session共享服务，必须启动Memcached服务端为系统服务。本人较为初级，一般都是按向导安装的。</p>
+<p>所以，要将其设为自动启动的服务也就困难了。<br>上网搜索了一下，结果，得到以下一些结果，做个记录：</p>
+<h5 id="1、最傻的做法"><a href="#1、最傻的做法" class="headerlink" title="1、最傻的做法"></a>1、最傻的做法</h5><p>通常：启动Memcache的服务器端的命令为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/local/bin/memcached -d -m 10 -u root -l 192.168.0.200 -p 12000 -c 256 -P /tmp/memcached.pid</span></span><br></pre></td></tr></table></figure>
+
+<p>-d选项是启动一个守护进程，<br>-m是分配给Memcache使用的内存数量，单位是MB，我这里是10MB，<br>-u是运行Memcache的用户，我这里是root，<br>-l是监听的服务器IP地址，如果有多个地址的话，我这里指定了服务器的IP地址192.168.0.200，<br>-p是设置Memcache监听的端口，我这里设置了12000，最好是1024以上的端口，<br>-c选项是最大运行的并发连接数，默认是1024，我这里设置了256，按照你服务器的负载量来设定，<br>-P是设置保存Memcache的pid文件，我这里是保存在 /tmp/memcached.pid，<br>想开机自动启动的话，只需在/etc/rc.d/rc.local中加入一行，上面命令<br>有人用以下命令：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/memcached/bin/memcached -d -m <span class="number">20</span> -p <span class="number">11211</span> -u apache</span><br></pre></td></tr></table></figure>
+
+<p>上面有些东西可以参考一下：即，ip不指定时，默认是本机，用户，最好选择是：apache 或 deamon<br>这样，也就是属于哪个用户的服务，由哪个用户启动。</p>
+<h5 id="2、较正规的方法："><a href="#2、较正规的方法：" class="headerlink" title="2、较正规的方法："></a>2、较正规的方法：</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">To add a service to chkconfig you will normally need a couple of special comments below the shebang of a shell script:</span><br><span class="line"><span class="comment">#!/bin/sh   </span></span><br><span class="line"><span class="comment"># chkconfig: - 55 45  </span></span><br><span class="line"><span class="comment"># description:  The memcached daemon is a network memory cache service.   </span></span><br><span class="line"><span class="comment"># processname: memcached  </span></span><br><span class="line"></span><br><span class="line">After adding the lines to /etc/init.d/memcached you can then issue</span><br><span class="line">chkconfig --add memcached</span><br><span class="line">There are of course additional run levels a process can start at so to check that you would issue</span><br><span class="line">chkconfig --<span class="keyword">list</span> | grep <span class="string">"memcached"</span></span><br><span class="line">A common run level <span class="keyword">for</span> memcached would be</span><br><span class="line">chkconfig --level <span class="number">345</span> memcached on</span><br></pre></td></tr></table></figure>
+
+<p>说明：chkconfig –add memcached 用来添加memcached服务<br>chkconfig –list | grep “memcached” 检查服务是否添加<br>还可以简写为这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig  --list | grep mem</span><br><span class="line">```bash</span><br><span class="line">chkconfig --level 345 memcached on</span><br></pre></td></tr></table></figure>
+
+<p>设置运行级别。<br>建议：最好使用chkconfig –level 235 memcached on 这样的话与apache级别相同，即只要有apache，就有memcached<br>3、更复杂的做法，创建完美的启动脚本<br>网上找到以下两个脚本：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># memcached:    MemCached Daemon   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># chkconfig:    - 90 25  </span></span><br><span class="line"><span class="comment"># description:  MemCached Daemon   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># Source function library.   </span></span><br><span class="line">. /etc/rc.d/init.d/<span class="built_in">functions</span>   </span><br><span class="line">. /etc/sysconfig/network   </span><br><span class="line"><span class="comment">#[ $&#123;NETWORKING&#125; = "no" ] &amp;&amp; exit 0  </span></span><br><span class="line"><span class="comment">#[ -r /etc/sysconfig/dund ] || exit 0  </span></span><br><span class="line"><span class="comment">#. /etc/sysconfig/dund   </span></span><br><span class="line"><span class="comment">#[ -z "$DUNDARGS" ] &amp;&amp; exit 0  </span></span><br><span class="line">start()   </span><br><span class="line">&#123;   </span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Starting memcached: "</span>  </span><br><span class="line">        daemon <span class="variable">$MEMCACHED</span> -u daemon -d -m 1024 -l 127.0.0.1 -p 11211  </span><br><span class="line">        <span class="built_in">echo</span>   </span><br><span class="line">&#125;   </span><br><span class="line">stop()   </span><br><span class="line">&#123;   </span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Shutting down memcached: "</span>  </span><br><span class="line">        killproc memcached   </span><br><span class="line">        <span class="built_in">echo</span>   </span><br><span class="line">&#125;   </span><br><span class="line">MEMCACHED=<span class="string">"/usr/local/memcached/bin/memcached"</span>  </span><br><span class="line">[ -f <span class="variable">$MEMCACHED</span> ] || <span class="built_in">exit</span> 1  </span><br><span class="line"><span class="comment"># See how we were called.   </span></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span>   </span><br><span class="line">  start)   </span><br><span class="line">        start   </span><br><span class="line">        ;;   </span><br><span class="line">  stop)   </span><br><span class="line">        stop   </span><br><span class="line">        ;;   </span><br><span class="line">  restart)   </span><br><span class="line">        stop   </span><br><span class="line">        sleep 3  </span><br><span class="line">        start   </span><br><span class="line">        ;;   </span><br><span class="line">    *)   </span><br><span class="line">        <span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart&#125;"</span>  </span><br><span class="line">        <span class="built_in">exit</span> 1  </span><br><span class="line"><span class="keyword">esac</span>   </span><br><span class="line"><span class="built_in">exit</span> 0  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#!/bin/sh   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># memcached:    MemCached Daemon   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># chkconfig:    - 90 25    </span></span><br><span class="line"><span class="comment"># description:  MemCached Daemon   </span></span><br><span class="line"><span class="comment">#   </span></span><br><span class="line"><span class="comment"># Source function library.   </span></span><br><span class="line">. /etc/rc.d/init.d/<span class="built_in">functions</span>   </span><br><span class="line">. /etc/sysconfig/network   </span><br><span class="line">    </span><br><span class="line">start()    </span><br><span class="line">&#123;   </span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Starting memcached: "</span>  </span><br><span class="line">        daemon /usr/<span class="built_in">local</span>/bin/memcached -u daemon -d -m 4096 -l 10.10.10.220 -p 58728  </span><br><span class="line">        <span class="built_in">echo</span>   </span><br><span class="line">&#125;   </span><br><span class="line">    </span><br><span class="line">stop()    </span><br><span class="line">&#123;   </span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Shutting down memcached: "</span>  </span><br><span class="line">        killproc memcached    </span><br><span class="line">        <span class="built_in">echo</span>   </span><br><span class="line">&#125;   </span><br><span class="line">    </span><br><span class="line">[ -f /usr/<span class="built_in">local</span>/bin/memcached ] || <span class="built_in">exit</span> 0  </span><br><span class="line">    </span><br><span class="line"><span class="comment"># See how we were called.   </span></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span>   </span><br><span class="line">  start)   </span><br><span class="line">        start   </span><br><span class="line">        ;;   </span><br><span class="line">  stop)   </span><br><span class="line">        stop   </span><br><span class="line">        ;;   </span><br><span class="line">  restart|reload)   </span><br><span class="line">        stop   </span><br><span class="line">        start   </span><br><span class="line">        ;;   </span><br><span class="line">  condrestart)   </span><br><span class="line">        stop   </span><br><span class="line">        start   </span><br><span class="line">        ;;   </span><br><span class="line">  *)   </span><br><span class="line">        <span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart|reload|condrestart&#125;"</span>  </span><br><span class="line">        <span class="built_in">exit</span> 1  </span><br><span class="line"><span class="keyword">esac</span>   </span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+
+<p>在上述指定目录创建了上述某一个脚本以后，就可以进行以下操作：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@crm ~]<span class="comment"># chkconfig  --add memcached </span></span><br><span class="line">[root@crm ~]<span class="comment"># chkconfig  --level 235  memcached  on</span></span><br><span class="line">[root@crm ~]<span class="comment"># chkconfig  --list | grep mem</span></span><br><span class="line">memcached       0:off   1:off   2:on   3:on    4:off   5:on   6:off</span><br></pre></td></tr></table></figure></p>
+<p>接下来，可以用以下命令启动与停止 memcached</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/rc.d/init.d/memcached  start  </span><br><span class="line">/etc/rc.d/init.d/memcached  stop</span><br><span class="line">/etc/rc.d/init.d/memcached  restart</span><br></pre></td></tr></table></figure>
+
+<p>如： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@crm ~]<span class="comment"># /etc/rc.d/init.d/memcached  restart</span></span><br><span class="line">Shutting down memcached: [  OK  ]</span><br><span class="line">Starting memcached:      [  OK  ]</span><br></pre></td></tr></table></figure>
+
+<p>同时，还可以用：<br>service memcached start<br>这样的命令操作<br>然后，可以用ps命令查看进程信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@crm ~]<span class="comment"># ps aux | grep mem</span></span><br><span class="line">daemon   23781  0.0  0.2 13892 9860 ?  Ss 16:51:00  /.../memcached -u daemon -d -m 1024 -l 172.16.0.106 -p 11211</span><br></pre></td></tr></table></figure>
+
+<p>以上两个脚本前一个脚本中，对网络进行检查。其它都是针对服务启动与停止的命令提示设置。<br>有人说，复杂的脚本并不好懂，自己也不会写，却想要更完善的，怎么办？<br>那就到网上找高手的。最好的捷径就是到对应的RPM包中去找。（如果直接用RPM包安装，这些事情都不用做了）<br>当然，memcached多数情况下都是编译安装，因为，很多时候都是找不到对应的版本。<br>脚本中 # chkconfig: - 55 45 运行级别这一列参数用的是 -，这样，是不在脚本中写死，可以通过 chkconfig  –level 235  memcached  on 灵活设置。<br>最后就是，目前仍不了解</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">. /etc/sysconfig/network</span><br><span class="line"><span class="comment">#[ $&#123;NETWORKING&#125; = "no" ] &amp;&amp; exit 0</span></span><br><span class="line"><span class="comment">#[ -r /etc/sysconfig/dund ] || exit 0</span></span><br><span class="line"><span class="comment">#. /etc/sysconfig/dund</span></span><br><span class="line"><span class="comment">#[ -z "$DUNDARGS" ] &amp;&amp; exit 0</span></span><br></pre></td></tr></table></figure>
+
+<p>这一段的详细含义。需要进一步学习！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/NoSql/" rel="tag"># NoSql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/cc768ab3/" rel="next" title="memcached操作类">
+                <i class="fa fa-chevron-left"></i> memcached操作类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/264386d1/" rel="prev" title="mysql：PHP连接Mysql单例">
+                mysql：PHP连接Mysql单例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、最傻的做法"><span class="nav-number">1.</span> <span class="nav-text">1、最傻的做法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、较正规的方法："><span class="nav-number">2.</span> <span class="nav-text">2、较正规的方法：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

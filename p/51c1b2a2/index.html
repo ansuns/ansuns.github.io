@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="solr,ecshop,全文检索,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="linux环境部署 先安装java环境 ，需要Java Runtime Environment(JRE) 1.7或更高版本下载5.5版本的solr zip包 : 链接解压到当前目录  1unzip -r solr-5.5.0.zip ./   创建应用程序目录  1mkdir -p /usr/local/solr   svn 代码solr_project/ check out 至 /data目录">
+<meta name="keywords" content="solr,ecshop,全文检索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="solr安装部署并整合到ecshop">
+<meta property="og:url" content="http://yoursite.com/p/51c1b2a2/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="linux环境部署 先安装java环境 ，需要Java Runtime Environment(JRE) 1.7或更高版本下载5.5版本的solr zip包 : 链接解压到当前目录  1unzip -r solr-5.5.0.zip ./   创建应用程序目录  1mkdir -p /usr/local/solr   svn 代码solr_project/ check out 至 /data目录">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="solr安装部署并整合到ecshop">
+<meta name="twitter:description" content="linux环境部署 先安装java环境 ，需要Java Runtime Environment(JRE) 1.7或更高版本下载5.5版本的solr zip包 : 链接解压到当前目录  1unzip -r solr-5.5.0.zip ./   创建应用程序目录  1mkdir -p /usr/local/solr   svn 代码solr_project/ check out 至 /data目录">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/51c1b2a2/">
+
+
+
+
+
+  <title>solr安装部署并整合到ecshop | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/51c1b2a2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">solr安装部署并整合到ecshop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-03T23:54:42+08:00">
+                2016-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/全文检索/" itemprop="url" rel="index">
+                    <span itemprop="name">全文检索</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h4 id="linux环境部署"><a href="#linux环境部署" class="headerlink" title="linux环境部署"></a>linux环境部署</h4><blockquote>
+<p>先安装java环境 ，需要Java Runtime Environment(JRE) 1.7或更高版本<br>下载5.5版本的solr zip包 : <a href="http://mirror.bit.edu.cn/apache/lucene/solr/5.5.0/" target="_blank" rel="noopener">链接</a><br>解压到当前目录</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -r solr-5.5.0.zip ./</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建应用程序目录</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/<span class="built_in">local</span>/solr</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>svn 代码solr_project/ check out 至 /data目录下<br>创建运行solr的用户并赋权</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># groupadd solr</span></span><br><span class="line"><span class="comment"># useradd -g solr solr</span></span><br><span class="line"><span class="comment"># chown -R solr.solr /data/solr_project/solr_cores /usr/local/solr</span></span><br></pre></td></tr></table></figure>
+
+<p>安装solr服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solr-5.5.0/bin/install_solr_service.sh solr-5.5.0.zip -d /data/solr_project/solr_cores -i /usr/<span class="built_in">local</span>/solr</span><br></pre></td></tr></table></figure>
+
+<p>检查服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service solr status</span><br></pre></td></tr></table></figure>
+
+<p>/data/solr_project/README.txt里有增加core，删除core重启<br><strong>core</strong>介绍<br><strong>solr_cores</strong>是<strong>solr</strong>存放<strong>core</strong>的目录</p>
+<ul>
+<li>新增core配置参考solr_cores/demo_core配置，修改conf里的managed-schema最后的字段信息</li>
+<li>新增core方法：复制demo_core，重命名为目标target_core，修改配置字段信息后，执行脚本./solr_s/add_core.sh target_core</li>
+<li>修改配置后需要重启solr，执行脚本./solr_cores/restart_solr.sh即可</li>
+<li>import_scripts存放导入core数据的脚本，对应core命名</li>
+<li>configs放置一些配置信息</li>
+<li>hnlog_文件夹存放索引更新的日志</li>
+<li>includes存放一些公用类</li>
+<li>扩展类添加到（如ik分词）/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib</li>
+</ul>
+<h4 id="更新core的scheme字段配置与导数据"><a href="#更新core的scheme字段配置与导数据" class="headerlink" title="更新core的scheme字段配置与导数据"></a>更新core的scheme字段配置与导数据</h4><ul>
+<li>solr_project已加入版本控制:svn://192.168.2.231/solr_project</li>
+<li>配置文件，solr_project/solr_cores/demo_core/conf/managed-schema，对应demo_core</li>
+<li>修改字段配置后重启solr脚本./restart_solr.sh</li>
+<li>导数据脚本solr_project/import_scripts/demo_core.php,对应core名称</li>
+</ul>
+<h4 id="添加ik中文分词"><a href="#添加ik中文分词" class="headerlink" title="添加ik中文分词"></a>添加ik中文分词</h4><ul>
+<li>将solr_project/inluces里的ik jar包放进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/lib</li>
+<li>将jar包中ext.dic IKAnalyzer.cfg.xml stopword.dic复制进/usr/local/solr/solr/server/solr-webapp/webapp/WEB-INF/classes</li>
+<li>solr_project/solr_cores/restart_solr.sh会将ext.dic、stopword.dic复制到上面的classes目录，自动更新扩展词库</li>
+</ul>
+<h4 id="整合solarium"><a href="#整合solarium" class="headerlink" title="整合solarium"></a>整合<strong>solarium</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require solarium/solarium</span><br></pre></td></tr></table></figure>
+
+<h4 id="在要使用检索的位置调用"><a href="#在要使用检索的位置调用" class="headerlink" title="在要使用检索的位置调用"></a>在要使用检索的位置调用</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'IN_ECS'</span>, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">require</span> dirname(FILE) . <span class="string">'/includes/lib_search.php'</span>;</span><br><span class="line">$Search = <span class="keyword">new</span> Search();</span><br><span class="line">$Search→query_params(<span class="string">"goods_name:欧式 shop_price:[100 TO *]"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>搜索条件：字段名:条件; * 如果多个查询条件，AND 或者 OR 等运算符 * 具体也可参考includes\search\vendor\solarium\solarium\examples下的例子</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+            <a href="/tags/ecshop/" rel="tag"># ecshop</a>
+          
+            <a href="/tags/全文检索/" rel="tag"># 全文检索</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/1125adb3/" rel="next" title="mysql语句：批量更新多条记录的不同值">
+                <i class="fa fa-chevron-left"></i> mysql语句：批量更新多条记录的不同值
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/95f60f3d/" rel="prev" title="Composer-安装">
+                Composer-安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux环境部署"><span class="nav-number">1.</span> <span class="nav-text">linux环境部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新core的scheme字段配置与导数据"><span class="nav-number">2.</span> <span class="nav-text">更新core的scheme字段配置与导数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加ik中文分词"><span class="nav-number">3.</span> <span class="nav-text">添加ik中文分词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整合solarium"><span class="nav-number">4.</span> <span class="nav-text">整合solarium</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在要使用检索的位置调用"><span class="nav-number">5.</span> <span class="nav-text">在要使用检索的位置调用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,数据库,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="mysql更新语句很简单，更新一条数据的某个字段，一般这样写： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field = &apos;other_value&apos;;  如果更新同一字段为同一个值，mysql也很简单，修改下where即可： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field in">
+<meta name="keywords" content="mysql,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql语句：批量更新多条记录的不同值">
+<meta property="og:url" content="http://yoursite.com/p/1125adb3/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="mysql更新语句很简单，更新一条数据的某个字段，一般这样写： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field = &apos;other_value&apos;;  如果更新同一字段为同一个值，mysql也很简单，修改下where即可： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql语句：批量更新多条记录的不同值">
+<meta name="twitter:description" content="mysql更新语句很简单，更新一条数据的某个字段，一般这样写： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field = &apos;other_value&apos;;  如果更新同一字段为同一个值，mysql也很简单，修改下where即可： 1UPDATE mytable SET myfield = &apos;value&apos; WHERE other_field in">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/1125adb3/">
+
+
+
+
+
+  <title>mysql语句：批量更新多条记录的不同值 | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/1125adb3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql语句：批量更新多条记录的不同值</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-25T14:57:41+08:00">
+                2016-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mysql更新语句很简单，更新一条数据的某个字段，一般这样写：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> mytable <span class="keyword">SET</span> myfield = <span class="string">'value'</span> <span class="keyword">WHERE</span> other_field = <span class="string">'other_value'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果更新同一字段为同一个值，mysql也很简单，修改下where即可：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> mytable <span class="keyword">SET</span> myfield = <span class="string">'value'</span> <span class="keyword">WHERE</span> other_field <span class="keyword">in</span> (<span class="string">'other_values'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里注意 ‘other_values’ 是一个逗号（，）分隔的字符串，如：1,2,3<br>那如果更新多条数据为不同的值，可能很多人会这样写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> ($display_order <span class="keyword">as</span> $id =&gt; $ordinal) &#123; </span><br><span class="line">    $sql = <span class="string">"UPDATE categories SET display_order = $ordinal WHERE id = $id"</span>; </span><br><span class="line">    mysql_query($sql); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即是循环一条一条的更新记录。一条记录update一次，这样性能很差，也很容易造成阻塞。<br>那么能不能一条sql语句实现批量更新呢？mysql并没有提供直接的方法来实现批量更新，但是可以用点小技巧来实现。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> mytable </span><br><span class="line">    <span class="keyword">SET</span> myfield = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'value'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'value'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'value'</span></span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里使用了case when 这个小技巧来实现批量更新。<br>举个例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> categories </span><br><span class="line">    <span class="keyword">SET</span> display_order = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="number">3</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="number">4</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="number">5</span> </span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这句sql的意思是，更新display_order 字段，如果id=1 则display_order 的值为3，如果id=2 则 display_order 的值为4，如果id=3 则 display_order 的值为5。<br>即是将条件语句写在了一起。<br>这里的where部分不影响代码的执行，但是会提高sql执行的效率。确保sql语句仅执行需要修改的行数，这里只有3条数据进行更新，而where子句确保只有3行数据执行。<br>如果更新多个值的话，只需要稍加修改：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> categories </span><br><span class="line">    <span class="keyword">SET</span> display_order = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="number">3</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="number">4</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="number">5</span> </span><br><span class="line">    <span class="keyword">END</span>, </span><br><span class="line">    title = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'New Title 1'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'New Title 2'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'New Title 3'</span></span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>到这里，已经完成一条mysql语句更新多条记录了。<br>但是要在业务中运用，需要结合服务端语言，这里以php为例，构造这条mysql语句：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$display_order = <span class="keyword">array</span>( </span><br><span class="line">    <span class="number">1</span> =&gt; <span class="number">4</span>, </span><br><span class="line">    <span class="number">2</span> =&gt; <span class="number">1</span>, </span><br><span class="line">    <span class="number">3</span> =&gt; <span class="number">2</span>, </span><br><span class="line">    <span class="number">4</span> =&gt; <span class="number">3</span>, </span><br><span class="line">    <span class="number">5</span> =&gt; <span class="number">9</span>, </span><br><span class="line">    <span class="number">6</span> =&gt; <span class="number">5</span>, </span><br><span class="line">    <span class="number">7</span> =&gt; <span class="number">8</span>, </span><br><span class="line">    <span class="number">8</span> =&gt; <span class="number">9</span> </span><br><span class="line">); </span><br><span class="line">$ids = implode(<span class="string">','</span>, array_keys($display_order)); </span><br><span class="line">$sql = <span class="string">"UPDATE categories SET display_order = CASE id "</span>; </span><br><span class="line"><span class="keyword">foreach</span> ($display_order <span class="keyword">as</span> $id =&gt; $ordinal) &#123; </span><br><span class="line">    $sql .= sprintf(<span class="string">"WHEN %d THEN %d "</span>, $id, $ordinal); </span><br><span class="line">&#125; </span><br><span class="line">$sql .= <span class="string">"END WHERE id IN ($ids)"</span>; </span><br><span class="line"><span class="keyword">echo</span> $sql;</span><br></pre></td></tr></table></figure>
+
+<p>这个例子，有8条记录进行更新。代码也很容易理解，你学会了吗<br>性能分析<br>当我使用上万条记录利用mysql批量更新，发现使用最原始的批量update发现性能很差，将网上看到的总结一下一共有以下三种办法：</p>
+<h5 id="1-批量update，一条记录update一次，性能很差"><a href="#1-批量update，一条记录update一次，性能很差" class="headerlink" title="1. 批量update，一条记录update一次，性能很差"></a>1. 批量update，一条记录update一次，性能很差</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> test_tbl <span class="keyword">set</span> dr=<span class="string">'2'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-replace-into-或者insert-into-…on-duplicate-key-update"><a href="#2-replace-into-或者insert-into-…on-duplicate-key-update" class="headerlink" title="2. replace into 或者insert into …on duplicate key update"></a>2. replace into 或者insert into …on duplicate key update</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">replace</span> <span class="keyword">into</span> test_tbl (<span class="keyword">id</span>,dr) <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">'2'</span>),(<span class="number">2</span>,<span class="string">'3'</span>),...(x,<span class="string">'y'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>或者使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tbl (<span class="keyword">id</span>,dr) <span class="keyword">values</span>  (<span class="number">1</span>,<span class="string">'2'</span>),(<span class="number">2</span>,<span class="string">'3'</span>),...(x,<span class="string">'y'</span>) <span class="keyword">on</span> <span class="keyword">duplicate</span> <span class="keyword">key</span> <span class="keyword">update</span> dr=<span class="keyword">values</span>(dr);</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-创建临时表，先更新临时表，然后从临时表中update"><a href="#3-创建临时表，先更新临时表，然后从临时表中update" class="headerlink" title="3. 创建临时表，先更新临时表，然后从临时表中update"></a>3. 创建临时表，先更新临时表，然后从临时表中update</h5><p>代码如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">temporary</span> <span class="keyword">table</span> tmp(<span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">4</span>) primary <span class="keyword">key</span>,dr <span class="built_in">varchar</span>(<span class="number">50</span>));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tmp <span class="keyword">values</span>  (<span class="number">0</span>,<span class="string">'gone'</span>), (<span class="number">1</span>,<span class="string">'xx'</span>),...(m,<span class="string">'yy'</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> test_tbl, tmp <span class="keyword">set</span> test_tbl.dr=tmp.dr <span class="keyword">where</span> test_tbl.id=tmp.id;</span><br></pre></td></tr></table></figure>
+
+<p>注意：这种方法需要用户有temporary 表的create 权限。<br>下面是上述方法update 100000条数据的性能测试结果：</p>
+<p>逐条update</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">real    0m15.557s</span><br><span class="line">user    0m1.684s</span><br><span class="line">sys    0m1.372s</span><br><span class="line"></span><br><span class="line"><span class="keyword">replace</span> <span class="keyword">into</span></span><br><span class="line"><span class="built_in">real</span>    <span class="number">0</span>m1<span class="number">.394</span>s</span><br><span class="line"><span class="keyword">user</span>    <span class="number">0</span>m0<span class="number">.060</span>s</span><br><span class="line"><span class="keyword">sys</span>    <span class="number">0</span>m0<span class="number">.012</span>s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">on</span> <span class="keyword">duplicate</span> <span class="keyword">key</span> <span class="keyword">update</span></span><br><span class="line"><span class="built_in">real</span>    <span class="number">0</span>m1<span class="number">.474</span>s</span><br><span class="line"><span class="keyword">user</span>    <span class="number">0</span>m0<span class="number">.052</span>s</span><br><span class="line"><span class="keyword">sys</span>    <span class="number">0</span>m0<span class="number">.008</span>s</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">temporary</span> <span class="keyword">table</span> <span class="keyword">and</span> <span class="keyword">update</span>:</span><br><span class="line"><span class="built_in">real</span>    <span class="number">0</span>m0<span class="number">.643</span>s</span><br><span class="line"><span class="keyword">user</span>    <span class="number">0</span>m0<span class="number">.064</span>s</span><br><span class="line"><span class="keyword">sys</span>    <span class="number">0</span>m0<span class="number">.004</span>s</span><br></pre></td></tr></table></figure>
+
+<p>就测试结果来看，测试当时使用replace into性能较好。<br>replace into  和insert into on duplicate key update的不同在于：<br>replace into　操作本质是对重复的记录先delete 后insert，如果更新的字段不全会将缺失的字段置为缺省值<br>insert into 则是只update重复记录，不会改变其它字段。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$iii = implode(<span class="string">','</span>, array_keys($arr));       </span><br><span class="line"></span><br><span class="line">        $sql2 = <span class="string">"UPDATE ecs_wechat_user SET tag_id = CASE uid "</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($arr <span class="keyword">as</span> $key =&gt; $val) &#123;</span><br><span class="line">            <span class="comment">//WHEN %d THEN %d 字符串用s替代</span></span><br><span class="line">            <span class="comment">//$sql2 .= sprintf("WHEN %s THEN %s ", $key,$val); 这里是字符串 ，格式 1,3 会报错</span></span><br><span class="line">            $sql2 .= sprintf(<span class="string">"WHEN %s THEN %s "</span>, $key,<span class="string">"'$val'"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        $sql2 .= <span class="string">"END WHERE uid IN ($iii)"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $sql2;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 批量更新多字段</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> string</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> \think\db\exception\BindParamException</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> \think\exception\PDOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">updateAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BaseModel::instance()-&gt;startTrans();</span><br><span class="line">    $sql = <span class="string">"UPDATE lc_users "</span>;</span><br><span class="line">    $sql .= <span class="string">' SET name = CASE id '</span>;</span><br><span class="line">    $ageData = [];</span><br><span class="line">    $sexData = [];</span><br><span class="line">    $data = BaseModel::instance()-&gt;table(<span class="string">'lc_users'</span>)-&gt;select()-&gt;toArray();</span><br><span class="line">    <span class="keyword">foreach</span> ($data <span class="keyword">as</span> $key =&gt; $val) &#123;</span><br><span class="line">        $name = $val[<span class="string">'id'</span>] . <span class="string">":"</span> . date(<span class="string">'Y-m-d H:i:s'</span>);</span><br><span class="line">        $age = $val[<span class="string">'id'</span>] + rand(<span class="number">1</span>, <span class="number">9</span>);</span><br><span class="line">        $sex = rand(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">        $sql .= sprintf(<span class="string">" WHEN %s THEN %s "</span>, $val[<span class="string">'id'</span>], <span class="string">"'$name'"</span>);</span><br><span class="line">        $ageData[] = sprintf(<span class="string">" WHEN %s THEN %s "</span>, $val[<span class="string">'id'</span>], <span class="string">"'$age'"</span>);</span><br><span class="line">        $sexData[] = sprintf(<span class="string">" WHEN %s THEN %s "</span>, $val[<span class="string">'id'</span>], <span class="string">"'$sex'"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $sql .= <span class="string">" END, age = CASE id "</span> . implode(<span class="string">' '</span>, $ageData);</span><br><span class="line">    $sql .= <span class="string">" END, sex = CASE id "</span> . implode(<span class="string">' '</span>, $sexData);</span><br><span class="line">    $sql .= <span class="string">" END "</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ($counts = BaseModel::instance()-&gt;execute($sql) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        BaseModel::instance()-&gt;commit();</span><br><span class="line">        <span class="keyword">return</span> $sql;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BaseModel::instance()-&gt;rollback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/59db2d48/" rel="next" title="Composer-常见问题">
+                <i class="fa fa-chevron-left"></i> Composer-常见问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/51c1b2a2/" rel="prev" title="solr安装部署并整合到ecshop">
+                solr安装部署并整合到ecshop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-批量update，一条记录update一次，性能很差"><span class="nav-number">1.</span> <span class="nav-text">1. 批量update，一条记录update一次，性能很差</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-replace-into-或者insert-into-…on-duplicate-key-update"><span class="nav-number">2.</span> <span class="nav-text">2. replace into 或者insert into …on duplicate key update</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-创建临时表，先更新临时表，然后从临时表中update"><span class="nav-number">3.</span> <span class="nav-text">3. 创建临时表，先更新临时表，然后从临时表中update</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

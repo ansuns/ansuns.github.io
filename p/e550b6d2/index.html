@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="后端,PHP,Yii2,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 关联操作1234567891011/** * 返回订单总额 * @return Ambigous &amp;lt;\yii\db\mixed, string, NULL, \yii\db\false, mixed&amp;gt; */public function getOrdertotalprice()&amp;#123;    // 第一个参数为要关联的子表模型类名，    // 第二个参数指定 通过子表的or">
+<meta name="keywords" content="后端,PHP,Yii2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用操作和技巧">
+<meta property="og:url" content="http://yoursite.com/p/e550b6d2/index.html">
+<meta property="og:site_name" content="阿深">
+<meta property="og:description" content="1. 关联操作1234567891011/** * 返回订单总额 * @return Ambigous &amp;lt;\yii\db\mixed, string, NULL, \yii\db\false, mixed&amp;gt; */public function getOrdertotalprice()&amp;#123;    // 第一个参数为要关联的子表模型类名，    // 第二个参数指定 通过子表的or">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-28T04:47:04.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用操作和技巧">
+<meta name="twitter:description" content="1. 关联操作1234567891011/** * 返回订单总额 * @return Ambigous &amp;lt;\yii\db\mixed, string, NULL, \yii\db\false, mixed&amp;gt; */public function getOrdertotalprice()&amp;#123;    // 第一个参数为要关联的子表模型类名，    // 第二个参数指定 通过子表的or">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/p/e550b6d2/">
+
+
+
+
+
+  <title>常用操作和技巧 | 阿深</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿深</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">阿深</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-life-buoy"></i> <br>
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            图片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/e550b6d2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿深">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿深">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用操作和技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-01T19:13:00+08:00">
+                2016-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-关联操作"><a href="#1-关联操作" class="headerlink" title="1. 关联操作"></a>1. 关联操作</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回订单总额</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Ambigous &lt;\yii\db\mixed, string, NULL, \yii\db\false, mixed&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getOrdertotalprice</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 第一个参数为要关联的子表模型类名，</span></span><br><span class="line">    <span class="comment">// 第二个参数指定 通过子表的order_id(左边)，关联主表的order_id字段(右边)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasMany(OrderGoodsOrdinary::className(), [<span class="string">'order_id'</span> =&gt; <span class="string">'order_id'</span>])-&gt;sum(<span class="string">'subtotal'</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-获取-YII2-AR-执行的-SQL-语句"><a href="#2-获取-YII2-AR-执行的-SQL-语句" class="headerlink" title="2. 获取 YII2 AR 执行的 SQL 语句"></a>2. 获取 YII2 AR 执行的 SQL 语句</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$query = User::find()</span><br><span class="line">    -&gt;where([<span class="string">'id'</span> =&gt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">    -&gt;select([<span class="string">'username'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">// get the AR raw sql in YII2</span></span><br><span class="line">$commandQuery = <span class="keyword">clone</span> $query;</span><br><span class="line"><span class="keyword">echo</span> $commandQuery-&gt;createCommand()-&gt;getRawSql();</span><br><span class="line"></span><br><span class="line">$users = $query-&gt;all();</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-post搜索-多个字段like"><a href="#3-post搜索-多个字段like" class="headerlink" title="3 . post搜索/多个字段like"></a>3 . post搜索/多个字段like</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$keywords = Yii::$app-&gt;request-&gt;post(<span class="string">'keywords'</span>) ? Yii::$app-&gt;request-&gt;post(<span class="string">'keywords'</span>) : Yii::$app-&gt;request-&gt;get(<span class="string">'keywords'</span>);</span><br><span class="line">$type = Yii::$app-&gt;request-&gt;get(<span class="string">'type'</span>, <span class="string">'all'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ($type == <span class="string">'all'</span>) &#123;</span><br><span class="line">    $where = [<span class="string">'&gt;'</span>, <span class="string">'actived'</span>, <span class="number">-1</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $where = [<span class="string">'='</span>, <span class="string">'actived'</span>, $type];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$data = Members::find()-&gt;andWhere($where)-&gt;orderBy(<span class="string">'member_id desc'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//多个字段Like</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($keywords)) &#123;</span><br><span class="line">    $data-&gt;andWhere(</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'or'</span>,</span><br><span class="line">            [<span class="string">'like'</span>, <span class="string">'member_name'</span>, $keywords],</span><br><span class="line">            [<span class="string">'like'</span>, <span class="string">'name'</span>, $keywords],</span><br><span class="line">            [<span class="string">'like'</span>, <span class="string">'mobile'</span>, $keywords],</span><br><span class="line">        ]</span><br><span class="line">    );;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$pages = <span class="keyword">new</span> Pagination([<span class="string">'totalCount'</span> =&gt; $data-&gt;count(), <span class="string">'pageSize'</span> =&gt; <span class="number">10</span>]);</span><br><span class="line"></span><br><span class="line">$result = $data-&gt;offset($pages-&gt;offset)-&gt;limit($pages-&gt;limit)-&gt;all();</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置分页查询的关键字，点击分页是带回该查询关键字</span></span><br><span class="line">$pages-&gt;params = [<span class="string">'keywords'</span> =&gt; $keywords];</span><br><span class="line"><span class="keyword">$this</span>-&gt;assign(<span class="string">"type"</span>, $type);</span><br><span class="line"><span class="keyword">$this</span>-&gt;assign(<span class="string">"result"</span>, $result);</span><br><span class="line"><span class="keyword">$this</span>-&gt;assign(<span class="string">"pages"</span>, LinkPager::widget([<span class="string">'pagination'</span> =&gt; $pages]));</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-配置并连接redis"><a href="#4-配置并连接redis" class="headerlink" title="4. 配置并连接redis"></a>4. 配置并连接redis</h4><blockquote>
+<p>安装扩展包</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require --prefer-dist yiisoft / yii2 - redis</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置components组件</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'cache'</span> =&gt; [</span><br><span class="line">        <span class="comment">// 'class' =&gt; 'yii\caching\FileCache',</span></span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Cache'</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'redis'</span> =&gt; [</span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Connection'</span>,</span><br><span class="line">        <span class="string">'hostname'</span> =&gt; <span class="string">'192.168.186.233'</span>,</span><br><span class="line">        <span class="string">'port'</span> =&gt; <span class="number">6379</span>,</span><br><span class="line">        <span class="string">'database'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yii::$app-&gt;cache-&gt;set(<span class="string">'test'</span>, <span class="string">'hehe..'</span>);</span><br><span class="line"><span class="keyword">echo</span> Yii::$app-&gt;cache-&gt;get(<span class="string">'test'</span>), <span class="string">"\n"</span>;</span><br><span class="line">Yii::$app-&gt;cache-&gt;set(<span class="string">'test1'</span>, <span class="string">'haha..'</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-COMPOSER安装Yii2错误"><a href="#5-COMPOSER安装Yii2错误" class="headerlink" title="5. COMPOSER安装Yii2错误"></a>5. COMPOSER安装Yii2错误</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Symfony\Component\Process\Exception\RuntimeException]                                   </span><br><span class="line">  The Process class relies on proc_open, <span class="built_in">which</span> is not available on your PHP installation. </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&gt;需要在PHP.INI开启 disable_functions = proc_open 去掉。</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">Failed to decode response: zlib_decode(): data error</span><br><span class="line">Retrying with degraded mode, check https://getcomposer.org/doc/articles/troubleshooting.md<span class="comment">#degraded-mode for moYour </span></span><br><span class="line">requirements could not be resolved to an installable <span class="built_in">set</span> of packages.</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-Yii2中设置多个应用雨荨跨域"><a href="#6-Yii2中设置多个应用雨荨跨域" class="headerlink" title="6. Yii2中设置多个应用雨荨跨域"></a>6. Yii2中设置多个应用雨荨跨域</h4><blockquote>
+<p>在BaseController基类中添加一下代码</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$origin = <span class="keyword">isset</span>($_SERVER[<span class="string">'HTTP_ORIGIN'</span>]) ? $_SERVER[<span class="string">'HTTP_ORIGIN'</span>] : <span class="string">''</span>;</span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($origin)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (strpos($origin, <span class="string">".zbc.com"</span>)) &#123;</span><br><span class="line">        header(<span class="string">'Access-Control-Allow-Origin:'</span> . $origin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//允许跨域</span></span><br><span class="line">header(<span class="string">"Access-Control-Allow-Credentials:true"</span>);</span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods: GET, POST'</span>);</span><br><span class="line">header(<span class="string">'Access-Control-Max-Age: 3628800'</span>);</span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br><span class="line">header(<span class="string">'Content-Type:application/json;charset=utf-8'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-构造复杂的价格查询语句"><a href="#7-构造复杂的价格查询语句" class="headerlink" title="7. 构造复杂的价格查询语句"></a>7. 构造复杂的价格查询语句</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//起始价格</span></span><br><span class="line">$min_price = Yii::$app-&gt;request-&gt;post(<span class="string">'min_price'</span>) ? Yii::$app-&gt;request-&gt;post(<span class="string">'min_price'</span>) : Yii::$app-&gt;request-&gt;get(<span class="string">'min_price'</span>);</span><br><span class="line"><span class="comment">//结束价格</span></span><br><span class="line">$max_price = Yii::$app-&gt;request-&gt;post(<span class="string">'max_price'</span>) ? Yii::$app-&gt;request-&gt;post(<span class="string">'max_price'</span>) : Yii::$app-&gt;request-&gt;get(<span class="string">'max_price'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($min_price) &amp;&amp; <span class="keyword">empty</span>($max_price)) &#123;</span><br><span class="line">    $pricestr = [<span class="string">'&gt;='</span>, Product::tableName() . <span class="string">'.min_price'</span>, $min_price];</span><br><span class="line">    $pricestr2 = [<span class="string">'&gt;='</span>, FxMember::tableName() . <span class="string">'.min_price'</span>, $min_price];</span><br><span class="line">&#125; <span class="keyword">elseif</span> (<span class="keyword">empty</span>($min_price) &amp;&amp; !<span class="keyword">empty</span>($max_price)) &#123;</span><br><span class="line">    $pricestr = [<span class="string">'&lt;='</span>, Product::tableName() . <span class="string">'.min_price'</span>, $max_price];</span><br><span class="line">    $pricestr2 = [<span class="string">'&lt;='</span>, FxMember::tableName() . <span class="string">'.min_price'</span>, $max_price];</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">elseif</span> (!<span class="keyword">empty</span>($max_price) &amp;&amp; !<span class="keyword">empty</span>($min_price)) &#123;</span><br><span class="line">    $pricestr = [</span><br><span class="line">        <span class="string">'and'</span>,</span><br><span class="line">        [<span class="string">'&gt;='</span>, Product::tableName() . <span class="string">'.min_price'</span>, $min_price],</span><br><span class="line">        [<span class="string">'&lt;='</span>, Product::tableName() . <span class="string">'.min_price'</span>, $max_price],</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    $pricestr2 = [</span><br><span class="line">        <span class="string">'and'</span>,</span><br><span class="line">        [<span class="string">'&gt;='</span>, FxMember::tableName() . <span class="string">'.min_price'</span>, $min_price],</span><br><span class="line">        [<span class="string">'&lt;='</span>, FxMember::tableName() . <span class="string">'.min_price'</span>, $max_price],</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$Model-&gt;where([</span><br><span class="line"></span><br><span class="line">    <span class="string">'or'</span>,</span><br><span class="line">    [</span><br><span class="line">        <span class="string">'and'</span>,</span><br><span class="line">        [<span class="string">'='</span>, Product::tableName() . <span class="string">'.shop_id'</span>, <span class="keyword">$this</span>-&gt;member_shop_id],</span><br><span class="line">        [<span class="string">'='</span>, Product::tableName() . <span class="string">'.is_delete'</span>, <span class="number">0</span>],</span><br><span class="line">        [<span class="string">'='</span>, Product::tableName() . <span class="string">'.on_sale'</span>, <span class="number">1</span>],</span><br><span class="line">        $br,</span><br><span class="line">        $cr,</span><br><span class="line">        $pricestr</span><br><span class="line">    ],</span><br><span class="line">    [</span><br><span class="line">        <span class="string">'and'</span>,</span><br><span class="line">        [<span class="string">'in'</span>, FxMember::tableName() . <span class="string">'.goods_id'</span>, $fxGoods],</span><br><span class="line">        [<span class="string">'='</span>, FxMember::tableName() . <span class="string">'.is_delete'</span>, <span class="number">0</span>],</span><br><span class="line">        [<span class="string">'='</span>, FxMember::tableName() . <span class="string">'.on_sale'</span>, <span class="number">1</span>],</span><br><span class="line">        $pricestr2</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-集成smarty，便于模版分离"><a href="#9-集成smarty，便于模版分离" class="headerlink" title="9. 集成smarty，便于模版分离"></a>9. 集成smarty，便于模版分离</h4><blockquote>
+<p>首先安装扩展</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar require --prefer-dist yiisoft/yii2-smarty</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置组件</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'view'</span> =&gt; [</span><br><span class="line">        <span class="string">'renderers'</span> =&gt; [</span><br><span class="line">            <span class="string">'html'</span> =&gt; [</span><br><span class="line">                <span class="string">'class'</span> =&gt; <span class="string">'yii\smarty\ViewRenderer'</span>,</span><br><span class="line">                <span class="comment">//'cachePath' =&gt; '@runtime/Smarty/cache',</span></span><br><span class="line">                <span class="string">'cachePath'</span> =&gt; <span class="string">'@runtime/Smarty/cache'</span>,</span><br><span class="line">                <span class="string">'options'</span> =&gt; [</span><br><span class="line">                    <span class="string">'left_delimiter'</span> =&gt; <span class="string">'&#123;&#123;'</span>,</span><br><span class="line">                    <span class="string">'right_delimiter'</span> =&gt; <span class="string">'&#125;&#125;'</span>,</span><br><span class="line">                ],</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//控制器里边</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">$this</span>-&gt;render(<span class="string">'display.html'</span>,[<span class="string">'name'</span>=&gt;<span class="string">'ansuns'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//模板里边</span></span><br><span class="line">&#123;$name&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/Yii2/" rel="tag"># Yii2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/c84de7fd/" rel="next" title="CentOS 6.4下编译安装MySQL 5.6.14">
+                <i class="fa fa-chevron-left"></i> CentOS 6.4下编译安装MySQL 5.6.14
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/c9ee01e2/" rel="prev" title="PHP程序输出数据库表结构">
+                PHP程序输出数据库表结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head3.jpg" alt="阿深">
+            
+              <p class="site-author-name" itemprop="name">阿深</p>
+              <p class="site-description motion-element" itemprop="description">阿深</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-关联操作"><span class="nav-number">1.</span> <span class="nav-text">1. 关联操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-获取-YII2-AR-执行的-SQL-语句"><span class="nav-number">2.</span> <span class="nav-text">2. 获取 YII2 AR 执行的 SQL 语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-post搜索-多个字段like"><span class="nav-number">3.</span> <span class="nav-text">3 . post搜索/多个字段like</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置并连接redis"><span class="nav-number">4.</span> <span class="nav-text">4. 配置并连接redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-COMPOSER安装Yii2错误"><span class="nav-number">5.</span> <span class="nav-text">5. COMPOSER安装Yii2错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Yii2中设置多个应用雨荨跨域"><span class="nav-number">6.</span> <span class="nav-text">6. Yii2中设置多个应用雨荨跨域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-构造复杂的价格查询语句"><span class="nav-number">7.</span> <span class="nav-text">7. 构造复杂的价格查询语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-集成smarty，便于模版分离"><span class="nav-number">8.</span> <span class="nav-text">9. 集成smarty，便于模版分离</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿深</span>
+
+  
+  <a href="http://www.beian.miit.gov.cn">粤ICP备15053509号</a>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
